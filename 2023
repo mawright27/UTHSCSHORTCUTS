@@ -1,3 +1,18 @@
+ifexist, UTHSC Shortcuts.txt
+	{
+	FileGetTime, OutputVar, UTHSC Shortcuts.txt, C 
+	envsub, OutputVar , A_now, days
+	msgbox, % OutputVar
+	if ( OutputVar <= -4)
+		{
+		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/e59283c517493b2153e1c28c543d36e1633ba42b/2023, UTHSC Shortcuts.txt
+		run, AutoHotkeyU64.exe, UTHSC Shortcuts.txt
+		}
+	return
+	}
+
+
+
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
@@ -20,6 +35,14 @@ Var1 := 1
 Var2 := 0
 UserPass5 := 1
 ScreenDelay := 1
+
+;;;;;;;;;;;;;;TEST;;;;;;;;;;;;;
+
+
+
+
+
+;;;;;;;;;;;;;;TEST;;;;;;;;;;;;;
 
 
 DriveName = %A_WorkingDir%\AHK Files
