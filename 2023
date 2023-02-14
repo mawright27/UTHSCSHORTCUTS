@@ -1,17 +1,18 @@
-ifexist, UTHSC Shortcuts.txt
+ifexist, UTHSC_Shortcuts.txt
 	{
-	FileGetTime, OutputVar, UTHSC Shortcuts.txt, C 
+	FileGetTime, OutputVar, UTHSC_Shortcuts.txt, C 
 	envsub, OutputVar , A_now, days
-	msgbox, % OutputVar
-	if ( OutputVar <= -4)
+	if ( OutputVar <= -1)
 		{
-		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/e59283c517493b2153e1c28c543d36e1633ba42b/2023, UTHSC Shortcuts.txt
-		run, AutoHotkeyU64.exe, UTHSC Shortcuts.txt
+		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+		reload
 		}
-	return
 	}
 
-
+else
+	{
+	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+	}
 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
@@ -36,37 +37,45 @@ Var2 := 0
 UserPass5 := 1
 ScreenDelay := 1
 
-;;;;;;;;;;;;;;TEST;;;;;;;;;;;;;
-
-
-
-
-
-;;;;;;;;;;;;;;TEST;;;;;;;;;;;;;
-
 
 DriveName = %A_WorkingDir%\AHK Files
 If !FileExist(DriveName)
 	FileCreateDir, %Drivename%
 
 SetWorkingDir %DriveName%
-	
+
+;;;;; ;; ;; ;; ;; ;; ;;;;;
+;;;;;                ;;;;;
+;;;;; READ AND WRITE ;;;;;
+;;;;;                ;;;;;
+;;;;; ;; ;; ;; ;; ;; ;;;;;
+
+	ifExist, AHKNoteContentsF3.txt
+		{
+		FileRead,DesiredString,AHKNoteContentsF3.txt
+		}
+
+	ifExist, AHKNoteContentsF4.txt
+		{
+		FileRead,DesiredString2,AHKNoteContentsF4.txt
+		}
+
+	Settimer, DeleteNoteContents, 300000
+
 
 	FileDelete,AHKHelpText.txt
 	FileAppend, *** Customize Username/Password in the options tab ***`n`n    Ctrl + Shift + A = Send Username then Password then Enter`n    Ctrl + Shift + Z = Send Password then Enter`n`n*** Customize Service/Note type and Note Template in OP ***`n    (Does not apply to ROH Trauma)`n`n   F1 = Copy previous Note Type once highlighted`n        (Will change depending on Hospital)`n`n   F2 = Start new note after clicking in yellow colored box.`n`n   F3 = Paste text copied earlier with F1`n	On trauma this pastes the Physical Exam copied earlier with F1`n`n   F4 = Trauma only. Paste Assessment/Plan from previous trauma note`n	copied earlier with F1, AHKHelpText.txt
 
-openingframe:
-
-
-
-		ifExist, OldList.txt
+	ifExist, OldList.txt
+		{
+		FileRead,Temp_OldData1,OldList.txt
+		Loop,Parse,Temp_OldData1,~
 			{
-			FileRead,Temp_OldData1,OldList.txt
-			Loop,Parse,Temp_OldData1,~
-				{
 					UserPass%A_Index% := A_LoopField
-				}
 			}
+		}
+
+openingframe:
 
 	Gui, 2: margin, 5, 3
 	Gui, 2: +alwaysontop -caption +ToolWindow +Lastfound
@@ -340,7 +349,7 @@ Reset1:
 	Return
 
 ;------------------------------------------------
-;-----------------OPTIONS--------------------
+;-----------------OPTIONS------------------------
 ;------------------------------------------------
 
 Options:
@@ -733,8 +742,23 @@ F1::
 	Desiredstring := regExReplace(Desiredstring,"^\s*","") ; remove leading
 	Desiredstring := regExReplace(Desiredstring,"\s*$","") ; remove trailing
 	Clipboard := ClipboardReplace1
+
+	FileDelete, AHKNoteContentsF3.txt
+	FileAppend, %DesiredString% , AHKNoteContentsF3.txt
+
+	FileDelete, AHKNoteContentsF4.txt
+	FileAppend, %DesiredString2% , AHKNoteContentsF4.txt
+
+	Settimer, DeleteNoteContents, 300000
 	
 	return
+
+DeleteNoteContents:
+
+	FileDelete, AHKNoteContentsF3.txt
+	FileDelete, AHKNoteContentsF4.txt
+
+	Return
 
 #if ROHTrauma
 
@@ -1026,12 +1050,5 @@ return
 
 ;X Clear button to clear all variables then reopen by going to OptionsOK then Options
 ;  More info on the ? notepad
-;X Textbox for the MLH note dotphrase
-;X Place options window in bottom right with OK button at the bottom. 
-;O At MLH Service/Note type says Service. At ROH it says Note Type. Gone on trauma
-;X Empty Service should not have an extra space
-;X Change MLH to MLB
-;O Change which text boxes show up in options based on different names. 
-;O Maybe just gray names out. 
 ;  Service/NoteType off for Trauma 
 ;  Change the help box to a GUI
