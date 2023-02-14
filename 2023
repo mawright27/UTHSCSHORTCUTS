@@ -275,7 +275,7 @@ Hospital:
 
 	Else
 		{
-		FileAppend,~~~~%HospitalNum%~,OldList.txt
+		FileAppend,~~~~%HospitalNum%~.n,OldList.txt
 		}
 
 	Gosub, OkayGUI11
@@ -363,10 +363,17 @@ Options:
 	return
 	}
 
+	ifExist, OldList.txt
+		{
+		FileRead,Temp_OldData1,OldList.txt
+		Loop,Parse,Temp_OldData1,~
+			{
+				UserPass%A_Index% := A_LoopField
+			}
+		}
+
 
 	Optionsgui1 := 1
-;	halfwidth1 := halfwidth + 90
-;	guilocation1 := guilocation - 110
 
 	Gui, 1:  -caption +ToolWindow +Lastfound +alwaysontop
 
@@ -521,6 +528,21 @@ PACS:
 
 #ESC::Suspend
 
+#c::
+	run,chrome.exe https://www.google.com/webhp
+	Return
+
+#n::	run, %windir%\system32\notepad.exe
+
+~MButton::
+	if(A_ThisHotKey = A_PriorHotKey) && (A_TimeSincePriorHotkey < 400) 
+	{
+		Gui, 2: Submit, NoHide
+		clipboard := Attending
+		Send, ^v
+	}
+	return
+
 ^+a::
 	
 	IfNotExist, OldList.txt
@@ -546,49 +568,11 @@ PACS:
 ^+z::
 	Send, %Pass%{ENTER}
 	Return
-	
-#c::
-	run,chrome.exe https://www.google.com/webhp
-	Return
 
-
-~MButton::
-	if(A_ThisHotKey = A_PriorHotKey) && (A_TimeSincePriorHotkey < 400) 
-	{
-		Gui, 2: Submit, NoHide
-		clipboard := Attending
-		Send, ^v
-	}
-	return
-
-;^+9::
-	SavedClipboard := ClipboardAll
-	SendInput, ^c
-	Sleep 10
-	Clipboard = (%Clipboard%)
-	SendInput, ^v
-	Clipboard := SavedClipboard
-	SavedClipboard =
-	return
-
-;^+'::
-	SavedClipboard := ClipboardAll
-	SendInput, ^c
-	Sleep 10
-	Clipboard = "%Clipboard%"
-	SendInput, ^v
-	Clipboard := SavedClipboard
-	SavedClipboard =
-	return
-
-#n::	run, %windir%\system32\notepad.exe
-
-::utmw::
 ^+e::
 	send,mwrigh86@uthsc.edu
 	send, {enter}
 	return
-
 ^+r::
 	send,Mycatisf@t77
 	send, {enter}
@@ -616,11 +600,11 @@ PACS:
 	send,{enter}
 	return
 
-^+b::
+^+3::
 	send,wri7048
 	send, {tab}
 	sleep, 100
-^+n::
+^+4::
 	sleep, 50
 	sendraw,Mycatisf@t55555
 	sleep, 100
