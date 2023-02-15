@@ -1,17 +1,19 @@
+#SingleInstance, Force ;Username/Password utility
+
 ifexist, UTHSC_Shortcuts.txt
 	{
-	FileGetTime, OutputVar, UTHSC_Shortcuts.txt, C 
+	FileGetTime, OutputVar, UTHSC_Shortcuts.txt,
 	envsub, OutputVar , A_now, days
 	if ( OutputVar <= -1)
 		{
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
-		reload
+		settimer, Reset1, 600000
 		}
 	}
 
 else
 	{
-	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts3.txt
 	}
 
 #SingleInstance, Force ;Username/Password utility
