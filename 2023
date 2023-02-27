@@ -597,7 +597,7 @@ PACS:
 	sleep, 100
 ^+2::
 	sleep, 50
-	sendraw,Mycatisf@t77
+	sendraw,Mycatisf@t777
 	sleep, 100
 	send,{enter}
 	return
