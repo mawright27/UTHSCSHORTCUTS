@@ -13,7 +13,7 @@ ifexist, UTHSC_Shortcuts.txt
 
 else
 	{
-	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts3.txt
+	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
 	}
 
 #SingleInstance, Force ;Username/Password utility
