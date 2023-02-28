@@ -126,7 +126,17 @@ Loop {
 	return
 	
 Showgui2:
+
+	WinGetPos,,,W,H,A
+	If ((W = A_ScreenWidth) && (H = A_ScreenHeight)) 
+	{
+	Gui, 2:Hide
+	}
+
+	else
+	{
 	Gui, 2:Show, NA, ToDo
+	}
 
 ;	if(optionsgui1 = 1)
 ;	{
@@ -613,7 +623,64 @@ PACS:
 	sleep, 100
 	send,{enter}
 	return
+;;;;;;;;;;;;;;;;;WIN FUNCTIONS;;;;;;;;;;;;;;;;;
 
+#z:: 
+
+	if WinExist("Browse ahk_exe anki.exe")
+	{
+	WinActivate
+	send, ^f
+	Return
+	}
+
+	else
+	{
+	WinActivate, User 1 - Anki ahk_exe anki.exe
+	sleep, 100
+	send, b
+	sleep, 100
+	send, ^f
+	}
+	return
+
+#a:: 
+
+	WinGetClass, PrevActiveClass, A
+	WinGetTitle, PrevActiveTitle, A
+
+	if WinExist("Add ahk_exe anki.exe")
+	{
+	WinActivate
+	Return
+	}
+
+	if WinExist("Browse ahk_exe anki.exe")
+	{
+	WinActivate
+	send, {ctrl down}e{ctrl up}
+	sleep, 200
+
+	WinActivate, %PrevActiveTitle% Ahk_class %PrevActiveClass%
+	WinActivate, Add ahk_exe anki.exe
+
+	Return
+	}
+
+	else
+	{
+	WinActivate, User 1 - Anki ahk_exe anki.exe
+	sleep, 100
+	send, b
+	sleep, 100
+	send, {ctrl down}e{ctrl up}
+	sleep, 200
+
+	WinActivate, %PrevActiveTitle% Ahk_class %PrevActiveClass%
+	WinActivate, Add ahk_exe anki.exe
+	}
+	return
+	
 ;::::::::::::::::DATE FUNCTIONS::::::::::::::::
 
 ^numpad0::
@@ -675,6 +742,11 @@ DateShortcutLong:
 	sendinput %today%
 	Return
 
+#IfWinActive ahk_class Notepad
+	^Backspace::
+	Send ^+{Left}{Backspace}
+	Return
+	
 #IfWinNotActive  ahk_class Qt5QWindowIcon
 
 ^+c::
