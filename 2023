@@ -1,24 +1,4 @@
 #SingleInstance, Force ;Username/Password utility
-
-ifexist, UTHSC_Shortcuts.txt
-	{
-	FileGetTime, OutputVar, UTHSC_Shortcuts.txt, C
-	envsub, OutputVar , A_now, seconds
-	if ( OutputVar <= -1)
-		{
-		FileDelete, UTHSC_Shortcuts.txt
-		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
-		Settimer, reset1, 6000
-		Reload
-		}
-	}
-
-else
-	{
-	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
-	}
-
-#SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
 	Settimer, showgui2, 2000
@@ -99,6 +79,7 @@ openingframe:
 	Guicontrol, 2: focus, GoogleSearch
 
 	GoSub, Hospital
+	GoSub, FileUpdate
 	
 ;	GoSub, LNBCheck
 
@@ -125,6 +106,29 @@ Loop {
      }
 
 	return
+
+FileUpdate:
+
+	ifexist, UTHSC_Shortcuts.txt
+		{
+		FileGetTime, OutputVar, UTHSC_Shortcuts.txt, C
+		envsub, OutputVar, A_now ,days
+		}
+
+	else
+		{
+		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+		}
+	
+	if (OutputVar <= -1)
+		{
+		FileDelete, UTHSC_Shortcuts.txt
+		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+		Settimer,reset1, 1000
+		}
+	Return
+
+
 	
 Showgui2:
 
@@ -409,7 +413,7 @@ Options:
 	Gui, 1: Font, cBlack
 	Gui, 1:Add, Edit, x132 y39 w120 h20 +Center gOptionsSave vName,%UserPass1%
 	Gui, 1:Add, Edit, x132 y69 w120 h20 +Password +Center gOptionsSave vPass,%UserPass2%
-	Gui, 1:Add, ComboBox, vService x132 y99 w120 h200 0x100 gOptionsSave ,%UserPass3%||Colorectal Surgery |General Surgery |Pediatric Surgery |Surgical Oncology |Transplant Surgery |Thoracic Surgery |Trauma Surgery |Vascular Surgery 
+	Gui, 1:Add, ComboBox, vService x132 y99 w120 h200 0x100 gOptionsSave ,%UserPass3%||Colorectal Surgery|General Surgery|Pediatric Surgery|Surgical Oncology|Transplant Surgery|Thoracic Surgery|Trauma Surgery|Vascular Surgery
 	Gui, 1:Add, Edit, vMLHNoteDotPhrase x132 y129 w120 h20 gOptionsSave +Center, %UserPass6%
 	Gui, 1:Add, Edit, vNoteType x132 y159 w120 h20 gOptionsSave +Center, %UserPass4%
 
@@ -908,7 +912,7 @@ F2::
 		sleep, 100
 		send,{tab}
 		sleep, 100
-		send,%UserPass3%Progress Note
+		send,%UserPass3% Progress Note
 		send,{tab 5}
 		send,free
 		sleep, 100
