@@ -8,6 +8,7 @@ ifexist, UTHSC_Shortcuts.txt
 		{
 		FileDelete,UTHSC_Shortcuts.txt
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+		Settimer, reset, 6000
 		Reload
 		}
 	}
