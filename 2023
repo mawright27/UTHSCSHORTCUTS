@@ -21,6 +21,7 @@ Var2 := 0
 UserPass5 := 1
 ScreenDelay := 1
 
+gosub, FileUpdate
 
 DriveName = %A_WorkingDir%\AHK Files
 If !FileExist(DriveName)
@@ -48,7 +49,25 @@ SetWorkingDir %DriveName%
 
 
 	FileDelete,AHKHelpText.txt
-	FileAppend, *** Customize Username/Password in the options tab ***`n`n    Ctrl + Shift + A = Send Username then Password then Enter`n    Ctrl + Shift + Z = Send Password then Enter`n`n*** Customize Service/Note type and Note Template in OP ***`n    (Does not apply to ROH Trauma)`n`n   F1 = Copy previous Note Type once highlighted`n        (Will change depending on Hospital)`n`n   F2 = Start new note after clicking in yellow colored box.`n`n   F3 = Paste text copied earlier with F1`n	On trauma this pastes the Physical Exam copied earlier with F1`n`n   F4 = Trauma only. Paste Assessment/Plan from previous trauma note`n	copied earlier with F1, AHKHelpText.txt
+	FileAppend, *** Customize Username/Password in the options tab ***`n`n 
+
+   Ctrl + Shift + A = Send Username then Password then Enter`n    Ctrl + Shift 
+
++ Z = Send Password then Enter`n`n*** Customize Service/Note type and Note 
+
+Template in OP ***`n    (Does not apply to ROH Trauma)`n`n   F1 = Copy 
+
+previous Note Type once highlighted`n        (Will change depending on 
+
+Hospital)`n`n   F2 = Start new note after clicking in yellow colored box.`n`n  
+
+ F3 = Paste text copied earlier with F1`n	On trauma this pastes the 
+
+Physical Exam copied earlier with F1`n`n   F4 = Trauma only. Paste 
+
+Assessment/Plan from previous trauma note`n	copied earlier with F1, 
+
+AHKHelpText.txt
 
 	ifExist, OldList.txt
 		{
@@ -67,19 +86,24 @@ openingframe:
 	WinSet, TransColor, a0a0a0
 
 ;	Gui, 2: add, Checkbox, y2 x3 h20 w15 vHideWindow gHidewindow,
-	Gui, 2: add, DropDownList, x20 w70 y2 r5 h20 vHospital gHospital Choose%UserPass5%, ROH Trauma|ROH|MLH|VA
+	Gui, 2: add, DropDownList, x20 w70 y2 r5 h20 vHospital gHospital 
+
+Choose%UserPass5%, ROH Trauma|ROH|MLH|VA
 	Gui, 2: add, Button, Default gEMR x95 y2 w40 h20 vEMR, EMR
-	Gui, 2: add, Button, Default gOFFICE x95 y2 w85 h20 vOffice Hidden, OFFICE/ROH
+	Gui, 2: add, Button, Default gOFFICE x95 y2 w85 h20 vOffice Hidden, 
+
+OFFICE/ROH
 	Gui, 2: add, Button, Default gPACS x140 y2 w40 h20 vPACS, PACS
 	Gui, 2: add, Button, Default gOptions x185 y2 w40 h20, OP
 	Gui, 2: add, Button, Default gReset1 x230 y2 w50 h20, RESET
-	Gui, 2: add, Button, Default gGoogleSearch vGoogleSearch x0 y2 w1 h1 Hidden, ; Hidden
+	Gui, 2: add, Button, Default gGoogleSearch vGoogleSearch x0 y2 w1 h1 
+
+Hidden, ; Hidden
 	Gui, 2: add, Edit, y2 x285 w93 h20 vAttending 
 	Gui, 2: add, Picture, w20 y2 h20 x380 gLNBChange vLNB1, LNBY.jpg
 	Guicontrol, 2: focus, GoogleSearch
 
 	GoSub, Hospital
-	GoSub, FileUpdate
 	
 ;	GoSub, LNBCheck
 
@@ -113,17 +137,29 @@ FileUpdate:
 		{
 		FileGetTime, OutputVar, UTHSC_Shortcuts.txt, C
 		envsub, OutputVar, A_now ,days
+		msgbox, %OutputVar%
 		}
 
 	else
 		{
-		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+		UrlDownloadToFile, 
+
+https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, 
+
+UTHSC_Shortcuts.txt
 		}
 	
 	if (OutputVar <= -1)
 		{
 		FileDelete, UTHSC_Shortcuts.txt
-		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+		sleep, 1000
+		UrlDownloadToFile, 
+
+https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, 
+
+UTHSC_Shortcuts.txt
+		Msgbox, deleted
+		sleep, 1000
 		Settimer,reset1, 1000
 		}
 	Return
@@ -163,16 +199,26 @@ NoteWriter:
 	Gui, 11: font, s10
 ;`	WinSet, TransColor, a0a0a0
 
-	Gui, 11: add, Button, Default gF1 x5 y5 w300 h30, F1: Copy previous note contents.
-	Gui, 11: add, Button, Default gF2 x5 y+3 w300 h30, F2: Create note after clicking within yellow box
+	Gui, 11: add, Button, Default gF1 x5 y5 w300 h30, F1: Copy previous 
+
+note contents.
+	Gui, 11: add, Button, Default gF2 x5 y+3 w300 h30, F2: Create note 
+
+after clicking within yellow box
 	if(ROHTrauma) 
 	{
-	Gui, 11: add, Button, Default gF3 x5 y+3 w300 h30, F3: Paste physical exam
-	Gui, 11: add, Button, Default gF4 x5 y+3 w300 h30, F4: Paste assessment/plan
+	Gui, 11: add, Button, Default gF3 x5 y+3 w300 h30, F3: Paste physical 
+
+exam
+	Gui, 11: add, Button, Default gF4 x5 y+3 w300 h30, F4: Paste 
+
+assessment/plan
 	}
 	if(MLH||ROH||VA) 
 	{
-	Gui, 11: add, Button, Default gF3 x5 y+3 w300 h30, F3: Paste Prevoious Note
+	Gui, 11: add, Button, Default gF3 x5 y+3 w300 h30, F3: Paste Prevoious 
+
+Note
 	}
 	Gui, 11: add, Button, Default gOkayGUI11 x100 y+3 w100 h30, Done
 
@@ -189,7 +235,9 @@ OkayGUI11:
 
 LNBDownload:
 
-	IfNotExist, LNBY.jpg ;  ((IfNotExist, LNBB.jpg) or (IfNotExist, LNBG.jpg) or (IfNotExist, LNBR.jpg) or (IfNotExist, LNBY.jpg))
+	IfNotExist, LNBY.jpg ;  ((IfNotExist, LNBB.jpg) or (IfNotExist, 
+
+LNBG.jpg) or (IfNotExist, LNBR.jpg) or (IfNotExist, LNBY.jpg))
 		{
 		Optionsgui10 := 1
 
@@ -288,7 +336,9 @@ Hospital:
 	ifExist, OldList.txt
 		{
 		FileDelete,OldList.txt
-		FileAppend,%UserPass1%~%UserPass2%~%UserPass3%~%UserPass4%~%HospitalNum%~%UserPass6%,OldList.txt
+		FileAppend,%UserPass1%~%UserPass2%~%UserPass3%~%UserPass4%~
+
+%HospitalNum%~%UserPass6%,OldList.txt
 		}
 
 	Else
@@ -302,7 +352,13 @@ Hospital:
 	
 Office:
 
-	run,chrome.exe -incognito https://outlook.office.com/mail/ 	https://storefront.regionalonehealth.org/vpn/index.html	https://sfvi.methodisthealth.org/Citrix/ShelbyWeb/ https://gobaptist.bmhcc.org/Citrix/BaptistWeb/
+	run,chrome.exe -incognito https://outlook.office.com/mail/ 	
+
+https://storefront.regionalonehealth.org/vpn/index.html	
+
+https://sfvi.methodisthealth.org/Citrix/ShelbyWeb/ 
+
+https://gobaptist.bmhcc.org/Citrix/BaptistWeb/
 	return
 
 GoogleSearch:
@@ -405,19 +461,37 @@ Options:
 
 	Gui, 1:Add, Text, x12 y102 w110 h20 +Right, Service
 
-	Gui, 1:Add, Text, x12 y132 w110 h20 +Right vMLHNoteDotPhraseText, MLH Note Dot Phrase
+	Gui, 1:Add, Text, x12 y132 w110 h20 +Right vMLHNoteDotPhraseText, MLH 
 
-	Gui, 1:Add, Text, x12 y162 w110 h20 +Right vROHNoteTemplateText, ROH Note Template
+Note Dot Phrase
+
+	Gui, 1:Add, Text, x12 y162 w110 h20 +Right vROHNoteTemplateText, ROH 
+
+Note Template
 
 
 	Gui, 1: Font, cBlack
-	Gui, 1:Add, Edit, x132 y39 w120 h20 +Center gOptionsSave vName,%UserPass1%
-	Gui, 1:Add, Edit, x132 y69 w120 h20 +Password +Center gOptionsSave vPass,%UserPass2%
-	Gui, 1:Add, ComboBox, vService x132 y99 w120 h200 0x100 gOptionsSave ,%UserPass3%||Colorectal Surgery|General Surgery|Pediatric Surgery|Surgical Oncology|Transplant Surgery|Thoracic Surgery|Trauma Surgery|Vascular Surgery
-	Gui, 1:Add, Edit, vMLHNoteDotPhrase x132 y129 w120 h20 gOptionsSave +Center, %UserPass6%
-	Gui, 1:Add, Edit, vNoteType x132 y159 w120 h20 gOptionsSave +Center, %UserPass4%
+	Gui, 1:Add, Edit, x132 y39 w120 h20 +Center gOptionsSave vName,
 
-	Gui, 1:Add, Button, x132 y189 w120 h20 border gClearFields, Clear Fields
+%UserPass1%
+	Gui, 1:Add, Edit, x132 y69 w120 h20 +Password +Center gOptionsSave 
+
+vPass,%UserPass2%
+	Gui, 1:Add, ComboBox, vService x132 y99 w120 h200 0x100 gOptionsSave 
+
+,%UserPass3%||Colorectal Surgery|General Surgery|Pediatric Surgery|Surgical 
+
+Oncology|Transplant Surgery|Thoracic Surgery|Trauma Surgery|Vascular Surgery
+	Gui, 1:Add, Edit, vMLHNoteDotPhrase x132 y129 w120 h20 gOptionsSave 
+
++Center, %UserPass6%
+	Gui, 1:Add, Edit, vNoteType x132 y159 w120 h20 gOptionsSave +Center, 
+
+%UserPass4%
+
+	Gui, 1:Add, Button, x132 y189 w120 h20 border gClearFields, Clear 
+
+Fields
 	Gui, 1:Add, Button, x132 y209 w70 h20 border gNoteWriter, Note Assist
 
 	Gui, 1:Add, Button, x202 y209 w50 h20 border gQuestionMark, Help
@@ -427,7 +501,9 @@ Options:
 	Gui, 1: Font, cWhite
 	Gui, 1:Add, CheckBox, x12 y189 w110 h20 gPause, Pause HotKeys
 
-	Gui, 1:Add, CheckBox, x12 y209 w110 h20 vScreenDelay gOptionsSave Checked, No Screensaver
+	Gui, 1:Add, CheckBox, x12 y209 w110 h20 vScreenDelay gOptionsSave 
+
+Checked, No Screensaver
 
 
 	Gui, 1: Font, cBlack
@@ -501,7 +577,9 @@ OptionsOk:
 		FileDelete,OldList.txt
 		}
 
-	FileAppend,%Name%~%Pass%~%Service%~%NoteType%~%HospitalNum%~%MLHNoteDotPhrase%~,OldList.txt
+	FileAppend,%Name%~%Pass%~%Service%~%NoteType%~%HospitalNum%~
+
+%MLHNoteDotPhrase%~,OldList.txt
 
 		ifExist, OldList.txt
 			{
@@ -537,7 +615,9 @@ ClearFields:
 	Return
 
 EMR: 
-  	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
+  	Run, iexplore.exe "https://regltn-wi-
+
+farm.cernerworkswan.com/Citrix/ProdWeb/"
   	Return
 
 PACS:
@@ -766,15 +846,21 @@ DateShortcutLong:
 
 #if ROH
 
-^F1::	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
+^F1::	Run, iexplore.exe "https://regltn-wi-
+
+farm.cernerworkswan.com/Citrix/ProdWeb/"
 
 #if
 	
 ^F2::	Run, iexplore.exe "https://rohpacs.the-med.org/"
 	
-+F5::	Edit ; Shift-F5 launches the current AutoHotkey script in preferred editor, else Notepad 
++F5::	Edit ; Shift-F5 launches the current AutoHotkey script in preferred 
 
-^F5::	Reload ; Ctrl-F5 reloads the current AutoHotKey script after any edits.
+editor, else Notepad 
+
+^F5::	Reload ; Ctrl-F5 reloads the current AutoHotKey script after any 
+
+edits.
 
 F1:
 #if MLH
@@ -792,8 +878,16 @@ F1::
 
 	BigString = %Clipboard%
 
-	StringGetPos, NeedleStart, BigString, ______________________________________________________________________________________________________________
-	StringGetPos, NeedleEnd, BigString, ______________________________________________________________________________________________________________, L2
+	StringGetPos, NeedleStart, BigString, 
+
+______________________________________________________________________________
+
+________________________________
+	StringGetPos, NeedleEnd, BigString, 
+
+______________________________________________________________________________
+
+________________________________, L2
 	Start:= NeedleStart +112
 	End:= NeedleEnd -0
 	Length := End - Start
@@ -803,8 +897,12 @@ F1::
 
 	;; REMOVE LEADING AND TRAILING BLANK CHARACTERS ;;
 
-	Desiredstring := regExReplace(Desiredstring,"^\s*","") ; remove leading
-	Desiredstring := regExReplace(Desiredstring,"\s*$","") ; remove trailing
+	Desiredstring := regExReplace(Desiredstring,"^\s*","") ; remove 
+
+leading
+	Desiredstring := regExReplace(Desiredstring,"\s*$","") ; remove 
+
+trailing
 	Clipboard := ClipboardReplace1
 
 	FileDelete, AHKNoteContentsF3.txt
@@ -860,8 +958,12 @@ F1::
 
 	;; REMOVE LEADING AND TRAILING BLANK CHARACTERS ;;
 
-	Desiredstring := regExReplace(Desiredstring,"^\s*","") ; remove leading
-	Desiredstring := regExReplace(Desiredstring,"\s*$","") ; remove trailing
+	Desiredstring := regExReplace(Desiredstring,"^\s*","") ; remove 
+
+leading
+	Desiredstring := regExReplace(Desiredstring,"\s*$","") ; remove 
+
+trailing
 	Clipboard := ClipboardReplace1
 
 	;; CRITICAL PATIENT DETAILS - Hospital day ;;
@@ -887,7 +989,9 @@ F1::
 	Length := End - Start
 	StringMid, DesiredString5, BigString, Start, Length
 
-	DesiredString5 = %DesiredString3% %DesiredString4% Interval History: %DesiredString5% %DesiredString2%
+	DesiredString5 = %DesiredString3% %DesiredString4% Interval History: 
+
+%DesiredString5% %DesiredString2%
 	
 	Return
 
@@ -1048,9 +1152,25 @@ LNBMayhem:
 	goto, LNB1
 	Return
 
-::sdsdc::Ok for discharge once patient meets criteria for discharge from same day surgery.
+::sdsdc::Ok for discharge once patient meets criteria for discharge from same 
 
-::dcrter::Call or present to the emergency room immediately if you have any of the following: `n Pain that gets worse or is not relieved by medication.`n Warmth, redness, or swelling in the skin around the wound.`n Foul drainage from incision.`n Extensive bruising or discoloration.`n Wound that opens up or pulls apart.`n Fever above 101.5°F or shaking chills.`n Nausea or vomiting.`n Severe diarrhea or severe constipation.`n Dizziness or fainting.`n Chest pain, shortness of breath, or increased work of breathing.`n Weight gain >10lbs over 3-4 days.`n Inability to urinate for more than 6 hours.
+day surgery.
+
+::dcrter::Call or present to the emergency room immediately if you have any of 
+
+the following: `n Pain that gets worse or is not relieved by medication.`n 
+
+Warmth, redness, or swelling in the skin around the wound.`n Foul drainage 
+
+from incision.`n Extensive bruising or discoloration.`n Wound that opens up or 
+
+pulls apart.`n Fever above 101.5°F or shaking chills.`n Nausea or vomiting.`n 
+
+Severe diarrhea or severe constipation.`n Dizziness or fainting.`n Chest pain, 
+
+shortness of breath, or increased work of breathing.`n Weight gain >10lbs over 
+
+3-4 days.`n Inability to urinate for more than 6 hours.
 
 ^SPACE:: Winset, Alwaysontop, , A
 
@@ -1110,9 +1230,23 @@ return
 ; Future dot phrases
 ; Cardiac Death Pronouncement
  
-; Called to bedside for cardiac death pronouncement of patient with DNR orders that was pronounced brain dead earlier this afternoon.  On assessment, the patient is unresponsive to painful stimuli.  Pupils are fixed and dilated.  Corneal reflexes are absent.  The patient has no spontaneous respirations.  The cardiac monitor shows asystole. Heart tones are absent.  Pulses are absent.  Cardiac death pronounced at 1825. ; Family present at bedside, condolences offered.  
+; Called to bedside for cardiac death pronouncement of patient with DNR orders 
 
-;X Clear button to clear all variables then reopen by going to OptionsOK then Options
+that was pronounced brain dead earlier this afternoon.  On assessment, the 
+
+patient is unresponsive to painful stimuli.  Pupils are fixed and dilated.  
+
+Corneal reflexes are absent.  The patient has no spontaneous respirations.  
+
+The cardiac monitor shows asystole. Heart tones are absent.  Pulses are 
+
+absent.  Cardiac death pronounced at 1825. ; Family present at bedside, 
+
+condolences offered.  
+
+;X Clear button to clear all variables then reopen by going to OptionsOK then 
+
+Options
 ;  More info on the ? notepad
 ;  Service/NoteType off for Trauma 
 ;  Change the help box to a GUI
