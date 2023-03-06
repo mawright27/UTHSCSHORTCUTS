@@ -114,7 +114,7 @@ FileUpdate:
 		{
 ;		msgbox, exists
 		FileGetTime, OutputVar, UTHSC_Shortcuts.txt,
-		envsub, OutputVar , A_now, hours
+		envsub, OutputVar , A_now, days
 		}
 
 	else
@@ -125,7 +125,6 @@ FileUpdate:
 
 	if ( OutputVar <= -1)
 		{
-		msgbox, %OutputVar% updating
 		FileDelete,UTHSC_Shortcuts.txt
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
 		settimer, Reset1, 60000
