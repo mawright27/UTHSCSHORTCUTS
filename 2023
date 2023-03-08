@@ -1,4 +1,4 @@
-; 3/6/2023
+; 3/8/2023
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
@@ -122,6 +122,10 @@ FileUpdate:
 ;		msgbox, doesnt exist
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts3.txt
 		}
+Settimer, FileUpdate2, 5000		
+Return
+
+FileUpdate2
 
 	if ( OutputVar <= -1)
 		{
