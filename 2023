@@ -1,4 +1,4 @@
-; 3/8/2023.  https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023
+; 3/8/2023
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
@@ -122,12 +122,16 @@ FileUpdate:
 ;		msgbox, doesnt exist
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts3.txt
 		}
+Settimer, FileUpdate2, 1000		
+Return
+
+FileUpdate2:
 
 	if ( OutputVar <= -1)
 		{
 		FileDelete,UTHSC_Shortcuts.txt
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
-		settimer, Reset1, 60000
+		settimer, Reset1, 3000
 		}
 	else
 		{
@@ -137,16 +141,7 @@ FileUpdate:
 Return
 	
 Showgui2:
-	WinGetPos,,,W,H,A
-	If ((W = A_ScreenWidth) && (H = A_ScreenHeight)) 
-	{
-	Gui, 2:Hide
-	}
-
-	else
-	{
 	Gui, 2:Show, NA, ToDo
-	}
 
 ;	if(optionsgui1 = 1)
 ;	{
@@ -930,28 +925,36 @@ F2::
 
 F3:
 F3:: 
+	CipVar1 := Clipboard
+	sleep, 100	
 
-	TempVar1 := Clipboard
-	Sleep, 100
 	Clipboard := DesiredString
 	sleep, 100
 	Send, ^v
 	sleep, 100
-	Clipboard := TempVar1
+
+	Clipboard := ClipVar1
+
 	return
 
 F4:
 F4:: 
+	CipVar1 := Clipboard
+	sleep, 100	
+
 	Send, ^a
 	Sleep 50
-	TempVar2 := Clipboard
 	Clipboard := DesiredString2
 	Send, ^v
 	sleep, 100
-	Clipboard := TempVar2
+
+	Clipboard := ClipVar1
+
 	return
 
 LNBMayhem:
+:*?:harvey::
+	Send, harvey
 
 	SetTimer, LocReload, 3500
 
@@ -1023,16 +1026,6 @@ return
 ;
 ;
 
-
-::clinichendrix:: (901) 515-4673
-
-::clinicfleming:: (901) 515-4673
-
-::clinicnelson:: (901) 758-7970
-
-::clinicpowell:: (901) 758-7970
-
-::clinicnez:: (901) 478-9183
 
 
 
