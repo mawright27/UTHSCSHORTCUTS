@@ -24,7 +24,7 @@ ScreenDelay := 1
 
 Gosub, FileUpdate
 
-DriveName = %A_WorkingDir%\AHK Files
+DriveName = %A_ScriptDir%\AHK Files
 If !FileExist(DriveName)
 	FileCreateDir, %Drivename%
 
@@ -110,6 +110,8 @@ Loop {
 
 FileUpdate:
 
+	SetWorkingDir %A_ScriptDir%
+
 	ifexist, UTHSC_Shortcuts.txt
 		{
 ;		msgbox, exists
@@ -122,16 +124,34 @@ FileUpdate:
 ;		msgbox, doesnt exist
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts3.txt
 		}
-Settimer, FileUpdate2, 1000		
+
+	DriveName = %A_ScriptDir%\AHK Files
+	If !FileExist(DriveName)
+		FileCreateDir, %Drivename%
+
+	SetWorkingDir %DriveName%	
+
+	Settimer, FileUpdate2, 3000		
+
 Return
 
 FileUpdate2:
 
 	if ( OutputVar <= -1)
 		{
+
+		SetWorkingDir %A_ScriptDir%
+
 		FileDelete,UTHSC_Shortcuts.txt
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
 		settimer, Reset1, 3000
+
+		DriveName = %A_ScriptDir%\AHK Files
+		If !FileExist(DriveName)
+			FileCreateDir, %Drivename%
+
+		SetWorkingDir %DriveName%
+
 		}
 	else
 		{
