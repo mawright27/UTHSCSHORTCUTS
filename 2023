@@ -117,33 +117,29 @@ FileUpdate:
 
 	ifexist, UTHSC_Shortcuts.txt
 		{
-		msgbox, exists
 
 		FileGetTime, OutputVar, UTHSC_Shortcuts.txt,
-		envsub, OutputVar , A_now, minutes
+		envsub, OutputVar , A_now, hours
 		}
 
 	else
 		{
 
-		msgbox, doesnt exist
-
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+
 		}
 
 
 
-	if ( OutputVar <= -2)
+	if ( OutputVar <= -12)
 		{
 
 		SetWorkingDir %A_ScriptDir%
 
-		msgbox, updating
-
 		FileDelete,UTHSC_Shortcuts.txt
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
 
-		settimer, Reset1, 5000
+;		settimer, Reset1, 5000
 
 		}
 
