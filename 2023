@@ -155,7 +155,16 @@ Return
 
 	
 Showgui2:
+	WinGetPos,,,W,H,A
+	If ((W = A_ScreenWidth) && (H = A_ScreenHeight)) 
+	{
+	Gui, 2:Hide
+	}
+
+	else
+	{
 	Gui, 2:Show, NA, ToDo
+	}
 
 ;	if(optionsgui1 = 1)
 ;	{
