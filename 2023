@@ -1,4 +1,4 @@
-; 3/8/2023
+; 3/10/2023 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
@@ -21,8 +21,6 @@ Var1 := 1
 Var2 := 0
 UserPass5 := 1
 ScreenDelay := 1
-
-Gosub, FileUpdate
 
 DriveName = %A_ScriptDir%\AHK Files
 If !FileExist(DriveName)
@@ -88,6 +86,8 @@ openingframe:
 	Gui, 2: submit, NoHide
 	
 	GoSub, LNBDownload
+
+	Gosub, FileUpdate
 	
 Loop {
 
@@ -108,7 +108,10 @@ Loop {
 
 	return
 
+
 FileUpdate:
+
+	sleep, 20000
 
 	SetWorkingDir %A_ScriptDir%
 
@@ -122,7 +125,7 @@ FileUpdate:
 	else
 		{
 ;		msgbox, doesnt exist
-		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts3.txt
+		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
 		}
 
 	DriveName = %A_ScriptDir%\AHK Files
@@ -159,6 +162,8 @@ FileUpdate2:
 		}
 
 Return
+
+
 	
 Showgui2:
 	Gui, 2:Show, NA, ToDo
@@ -945,13 +950,13 @@ F2::
 
 F3:
 F3:: 
-	CipVar1 := Clipboard
+	CipVar1 := ClipboardAll
 	sleep, 100	
 
 	Clipboard := DesiredString
 	sleep, 100
 	Send, ^v
-	sleep, 100
+	sleep, 500
 
 	Clipboard := ClipVar1
 
@@ -959,14 +964,14 @@ F3::
 
 F4:
 F4:: 
-	CipVar1 := Clipboard
+	CipVar1 := ClipboardAll
 	sleep, 100	
 
 	Send, ^a
 	Sleep 50
 	Clipboard := DesiredString2
 	Send, ^v
-	sleep, 100
+	sleep, 500
 
 	Clipboard := ClipVar1
 
