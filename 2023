@@ -91,7 +91,7 @@ openingframe:
 	
 Loop {
 
-	    Sleep, 20000
+	    Sleep, 90000
 	if(ScreenDelay = 1)
 	{
 	    LastX := CurrentX
