@@ -1,4 +1,4 @@
-; 3/8/2023
+; 3/8/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
@@ -625,7 +625,7 @@ PACS:
 	sleep, 100
 ^+w::
 	sleep, 50
-	sendraw,Mycatisf@t55555
+	sendraw,Ihopeitworks23!
 	sleep, 100
 	send,{enter}
 	return
