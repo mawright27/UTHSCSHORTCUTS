@@ -1187,3 +1187,118 @@ return
 ;  More info on the ? notepad
 ;  Service/NoteType off for Trauma 
 ;  Change the help box to a GUI; 
+
+
+;;;
+;	Gui, 1:Add, CheckBox, x12 y178 w110 h20 gPause, Pause HotKeys
+;	Gui, 1:Add, CheckBox, x12 y196 w110 h20 vScreenDelay gOptionsSave Checked, No Screensaver
+;	Gui, 1:Add, CheckBox, x12 y214 w110 h20 vTomorrow gOptionsSave, Note Date +1
+	
+	
+	
+;F2::
+
+;	if(MLH)
+	{
+	
+		send,progress
+		send,{enter}
+		sleep, 100
+		send,{tab}
+		sleep, 100
+		send,%UserPass3% Progress Note
+		send,{tab}
+			if(tomorrow = 1)
+			{
+					today = %a_now%
+					today += 1, days
+					FormatTime, today, %today%, M/d/yy
+					sendinput %today%
+			}
+		sleep, 100
+		send,{tab}
+			if(tomorrow = 1)
+			{
+					send, 0700
+			}
+		sleep, 100
+		send,{tab 3}
+		send,free
+		sleep, 100
+		send,{tab 6}
+		sleep, 200
+		send,{enter}
+		sleep, 700
+		send,%userpass6% 
+		sleep, 500
+		send, {Enter}
+		sleep, 200
+		send, {ctrl down}{home}{ctrl up}
+		sleep, 300
+		send, {Down 4}{Shift down}{Down 14}{Shift up}{Delete}
+	}	
+
+	if(ROHTrauma)
+	{
+
+		send,trauma progress
+		send,{enter}
+		sleep, 100
+		send,{tab}{tab}
+			if(tomorrow = 1)
+			{
+					today = %a_now%
+					today += 1, days
+					FormatTime, today, %today%, M/d/yy
+					sendinput %today%
+			}
+		sleep, 100
+		send, {tab}
+		sleep, 100
+		sendraw,0700
+		sleep, 100
+		send,{tab 3}
+		sleep, 100
+		send,trauma progress
+		sleep, 100
+		send,{tab 6}
+		sleep, 100
+		send,{enter}
+		sleep, 1500
+
+		send,{tab 6}
+		sleep, 200
+		clipboard := desiredstring
+		sleep, 300
+		send ^v
+		sleep, 1000
+		loop, 8
+			{
+			send, {tab}
+			sleep, 100
+			send ^a
+			sleep, 100
+			send, {delete}
+			}
+		send, {shift down}{tab 9}{Shift up}
+	}
+
+	if(ROH)
+	{
+		send,%Service% Progress note
+		send,{enter}
+		sleep, 100
+		send {tab}
+		sleep, 100
+;		send,%Service% progress Note
+		send,{tab 5}
+		sleep, 100
+		send,%NoteType% progress note
+		sleep, 100
+		send,{tab 6}
+		sleep, 100
+		send,{enter}
+		sleep, 700
+	}
+
+	Return
