@@ -1241,9 +1241,6 @@ LNBMayhem:
 
 EmailLog:
 
-	Loop 	{
-
-
 	Formattime, Date,, MMddyy
 	Formattime, time,, HHmmss
 	
@@ -1286,8 +1283,6 @@ EmailLog:
 	Loop, Parse, sAttach, |, %A_Space%%A_Tab%
 	pmsg.AddAttachment(A_LoopField)
 	pmsg.Send()
-
-		}
 
 	return
 
