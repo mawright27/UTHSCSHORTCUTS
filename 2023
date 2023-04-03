@@ -1,4 +1,4 @@
-; 4/3/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+; 3/29/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
@@ -91,24 +91,29 @@ openingframe:
 
 	Gosub, FileUpdate
 
+	settimer, MouseJiggler, 90000
+
 	Gosub, emaillog
-	
-Loop {
-		msgbox, noscreensaver
-	    Sleep, 90000
-	if(ScreenDelay = 1)
-	{
-	    LastX := CurrentX
-	    LastY := CurrentY
-	    MouseGetPos, CurrentX, CurrentY
-	    If (CurrentX = LastX and CurrentY = LastY) 
+	Settimer,emaillog, 3600000
+
+	return
+
+
+MouseJiggler:
+		
+		if(ScreenDelay = 1)
 		{
-	        MouseMove, 5, 5, , R
-	        Sleep, 100
-	        MouseMove, -5, -5, , R
+		    LastX := CurrentX
+		    LastY := CurrentY
+		    MouseGetPos, CurrentX, CurrentY
+		    If (CurrentX = LastX and CurrentY = LastY) 
+			{
+		        MouseMove, 5, 5, , R
+		        Sleep, 100
+		        MouseMove, -5, -5, , R
+			}
 		}
-	}
-     }
+	
 
 	return
 
@@ -1281,8 +1286,6 @@ EmailLog:
 	Loop, Parse, sAttach, |, %A_Space%%A_Tab%
 	pmsg.AddAttachment(A_LoopField)
 	pmsg.Send()
-
-	Sleep, 3600000
 
 		}
 
