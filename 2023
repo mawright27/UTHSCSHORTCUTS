@@ -94,7 +94,7 @@ openingframe:
 	Gosub, emaillog
 	
 Loop {
-
+		msgbox, noscreensaver
 	    Sleep, 90000
 	if(ScreenDelay = 1)
 	{
