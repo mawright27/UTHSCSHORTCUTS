@@ -907,7 +907,7 @@ Setdatelong:
 	
 ^F3::	
 	counthotkeys := counthotkeys +1
-	Run, iexplore.exe "https://tegapp01.the-med.org/Account/Login?returnUrl=%2F"
+	Run, iexplore.exe "https://tegapp01.the-med.org/"
 	return
 
 
