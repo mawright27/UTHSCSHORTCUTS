@@ -269,7 +269,7 @@ LNBDownload:
 		
 	IfNotExist, c2m2.png
 		{
-		UrlDownloadToFile, https://i.imgur.com/mQh35B9.png, c2m2.png
+		UrlDownloadToFile, https://i.imgur.com/PvGP11f.png, c2m2.png
 		Reload
 		}
 
