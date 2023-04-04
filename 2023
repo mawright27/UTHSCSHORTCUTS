@@ -761,7 +761,7 @@ PACS:
 ^+w::
 	counthotkeys := counthotkeys +1
 	sleep, 50
-	sendraw,Mycatisf@t77777
+	sendraw,Ihopeitworks23!
 	sleep, 100
 	send,{enter}
 	return
@@ -898,18 +898,17 @@ Setdatelong:
 	goto, OFFICE
 	return
 
-#if ROH
+#if ROH|ROHTrauma
 
 ^F1::	
 	counthotkeys := counthotkeys +1
 	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
 	return
-	
+
 ^F3::	
 	counthotkeys := counthotkeys +1
 	Run, iexplore.exe "https://tegapp01.the-med.org/"
 	return
-
 
 #if
 	
@@ -1245,7 +1244,7 @@ LNBMayhem:
 	Return
 
 
-EmailLog:
+;EmailLog:
 
 	Formattime, Date,, MMddyy
 	Formattime, time,, HHmmss
