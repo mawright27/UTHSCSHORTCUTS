@@ -91,18 +91,16 @@ openingframe:
 
 	Gosub, FileUpdate
 
-	settimer, MouseJiggler, 90000
-
 ;	Gosub, emaillog
 ;	Settimer,emaillog, 3600000
 
-	return
 
 
 MouseJiggler:
 		
 		if(ScreenDelay = 1)
 		{
+			sleep, 24000
 		    LastX := CurrentX
 		    LastY := CurrentY
 		    MouseGetPos, CurrentX, CurrentY
