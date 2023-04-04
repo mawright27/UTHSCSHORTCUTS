@@ -904,6 +904,12 @@ Setdatelong:
 	counthotkeys := counthotkeys +1
 	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
 	return
+	
+^F3::	
+	counthotkeys := counthotkeys +1
+	Run, iexplore.exe "https://tegapp01.the-med.org/Account/Login?returnUrl=%2F"
+	return
+
 
 #if
 	
