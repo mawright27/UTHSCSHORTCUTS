@@ -761,7 +761,7 @@ PACS:
 ^+w::
 	counthotkeys := counthotkeys +1
 	sleep, 50
-	sendraw,Ihopeitworks23!
+	sendraw,Mycatisf@t77777
 	sleep, 100
 	send,{enter}
 	return
