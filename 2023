@@ -93,8 +93,8 @@ openingframe:
 
 	settimer, MouseJiggler, 90000
 
-	Gosub, emaillog
-	Settimer,emaillog, 3600000
+;	Gosub, emaillog
+;	Settimer,emaillog, 3600000
 
 	return
 
