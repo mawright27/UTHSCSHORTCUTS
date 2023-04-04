@@ -472,7 +472,7 @@ Options:
 
 ;	Optionsgui1 := 1
 
-	Gui, 1:     +alwaysontop -caption +ToolWindow ;  +Lastfound +E0x08000000
+	Gui, 1:     +alwaysontop  +ToolWindow +E0x08000000 ;  +Lastfound  -caption
 
 	Gui, 1: Font, s14 Bold cWhite, Veranda
 
