@@ -10,7 +10,7 @@ Optionsgui1 := 0
 halfwidth := A_ScreenWidth * 1/2 + 30
 screenright := A_ScreenWidth - 325
 ScreenRightOptions := A_ScreenWidth - 272 
-ScreenBottomOptions := A_ScreenHeight - 319
+ScreenBottomOptions := A_ScreenHeight - 345
 guilocation := A_ScreenHeight - 30
 Desiredstring := ""
 DesiredString2 := Error
@@ -97,12 +97,12 @@ openingframe:
 
 
 MouseJiggler:
-	
-	loop{	
+		
+	loop{
+
 		if(ScreenDelay = 1)
 		{
-			msgbox, works
-			sleep, 120000
+			sleep, 24000
 		    LastX := CurrentX
 		    LastY := CurrentY
 		    MouseGetPos, CurrentX, CurrentY
@@ -114,7 +114,7 @@ MouseJiggler:
 			}
 		}
 	
-	}
+		}
 	return
 
 
@@ -269,17 +269,17 @@ LNBDownload:
 		Reload
 		}
 		
-	IfNotExist, c2m2.png
-		{
-		UrlDownloadToFile, https://i.imgur.com/PvGP11f.png, c2m2.png
-		Reload
-		}
+;	IfNotExist, c2m2.png
+;		{
+;		UrlDownloadToFile, https://i.imgur.com/PvGP11f.png, c2m2.png
+;		Reload
+;		}
 
-	IfNotExist, whitex.png
-		{
-		UrlDownloadToFile, https://i.imgur.com/tKI0H2B.png, whitex.png
-		Reload
-		}
+;	IfNotExist, whitex.png
+;		{
+;		UrlDownloadToFile, https://i.imgur.com/tKI0H2B.png, whitex.png
+;		Reload
+;		}
 
 	Return
 
@@ -482,11 +482,11 @@ Options:
 
 	Gui, 1: Font, s8 normal, Arial
 
-	Gui, 1: add, Picture, w16 h16 y2 x230, c2m2.png
-	gui, 1: add, Picture, w16 h16 y2 x250 gOptionsOk, whitex.png
-	Gui, 1:Add, Button, x100 y239 w100 h30 gOptionsOk default vOptionsClose, CLOSE
+;	Gui, 1: add, Picture, w16 h16 y2 x230, c2m2.png
+;	gui, 1: add, Picture, w16 h16 y2 x250 gOptionsOk, whitex.png
+;	Gui, 1:Add, Button, x100 y239 w100 h30 gOptionsOk default vOptionsClose, CLOSE
 
-	Gui, 1: add, Tab3, x0 y-2 vTab1, General|Note Writer|HotKeys
+	Gui, 1: add, Tab3, x0 y0 vTab1, General|Note Writer|HotKeys
 
 	Gui, 1: Tab, 1
 
