@@ -102,7 +102,7 @@ MouseJiggler:
 		if(ScreenDelay = 1)
 		{
 			msgbox, works
-			sleep, 240000
+			sleep, 120000
 		    LastX := CurrentX
 		    LastY := CurrentY
 		    MouseGetPos, CurrentX, CurrentY
