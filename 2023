@@ -9,7 +9,7 @@
 Optionsgui1 := 0
 halfwidth := A_ScreenWidth * 1/2 + 30
 screenright := A_ScreenWidth - 325
-ScreenRightOptions := A_ScreenWidth - 272 
+ScreenRightOptions := A_ScreenWidth - 277 
 ScreenBottomOptions := A_ScreenHeight - 345
 guilocation := A_ScreenHeight - 30
 Desiredstring := ""
