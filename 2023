@@ -97,10 +97,12 @@ openingframe:
 
 
 MouseJiggler:
-		
+	
+	loop{	
 		if(ScreenDelay = 1)
 		{
-			sleep, 24000
+			msgbox, works
+			sleep, 240000
 		    LastX := CurrentX
 		    LastY := CurrentY
 		    MouseGetPos, CurrentX, CurrentY
@@ -112,7 +114,7 @@ MouseJiggler:
 			}
 		}
 	
-
+	}
 	return
 
 
