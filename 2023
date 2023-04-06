@@ -1,4 +1,4 @@
-; 4/3/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+; 4/6/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
@@ -102,15 +102,15 @@ MouseJiggler:
 
 		if(ScreenDelay = 1)
 		{
-			sleep, 24000
+			sleep, 60000
 		    LastX := CurrentX
 		    LastY := CurrentY
 		    MouseGetPos, CurrentX, CurrentY
 		    If (CurrentX = LastX and CurrentY = LastY) 
 			{
-		        MouseMove, 5, 5, , R
+		        MouseMove, 3, 3, , R
 		        Sleep, 100
-		        MouseMove, -5, -5, , R
+		        MouseMove, -3, -3, , R
 			}
 		}
 	
@@ -310,6 +310,12 @@ Hospital:
 		Guicontrol,1:show,ROHF3
 		GUicontrol,1:show,ROHF4
 		Guicontrol,1:hide,MLHF3
+		Guicontrol,1:hide,ServiceText
+		Guicontrol,1:hide,MLHNoteDotPhraseText
+		Guicontrol,1:hide,ROHNoteTemplateText
+		Guicontrol,1:hide,Service
+		Guicontrol,1:hide,MLHNoteDotPhrase
+		Guicontrol,1:hide,NoteType
 	}
 
 	if(Hospital="ROH")
@@ -323,6 +329,12 @@ Hospital:
 		Guicontrol,1:show,ROHF3
 		GUicontrol,1:show,ROHF4
 		Guicontrol,1:hide,MLHF3
+		Guicontrol,1:show,ServiceText
+		Guicontrol,1:hide,MLHNoteDotPhraseText
+		Guicontrol,1:show,ROHNoteTemplateText
+		Guicontrol,1:show,Service
+		Guicontrol,1:hide,MLHNoteDotPhrase
+		Guicontrol,1:show,NoteType
 	}
 
 	if(Hospital="MLH")
@@ -336,6 +348,12 @@ Hospital:
 		Guicontrol,1:hide,ROHF3
 		GUicontrol,1:hide,ROHF4
 		Guicontrol,1:show,MLHF3
+		Guicontrol,1:show,ServiceText
+		Guicontrol,1:show,MLHNoteDotPhraseText
+		Guicontrol,1:hide,ROHNoteTemplateText
+		Guicontrol,1:show,Service
+		Guicontrol,1:show,MLHNoteDotPhrase
+		Guicontrol,1:hide,NoteType
 
 	}
 
@@ -492,7 +510,7 @@ Options:
 
 		Gui, 1:Add, Text, x12 y37 w110 h20 +Right, Username
 		Gui, 1:Add, Text, x12 y62 w110 h20 +Right, Password
-		Gui, 1:Add, Text, x12 y87 w110 h20 +Right, Service
+		Gui, 1:Add, Text, x12 y87 w110 h20 +Right vServiceText, Service
 		Gui, 1:Add, Text, x12 y112 w110 h20 +Right vMLHNoteDotPhraseText, MLH Note Dot Phrase
 		Gui, 1:Add, Text, x12 y137 w110 h20 +Right vROHNoteTemplateText, ROH Note Template
 	
@@ -501,9 +519,9 @@ Options:
 
 		Gui, 1:Add, Edit, x132 y34 w120 h20 +Center gOptionsSave vName,%UserPass1%
 		Gui, 1:Add, Edit, x132 y59 w120 h20 +Password +Center gOptionsSave vPass,%UserPass2%
-		Gui, 1:Add, ComboBox, vService x132 y84 w120 h200 0x100 gOptionsSave ,%UserPass3%||Acute Care Surgery|Colorectal Surgery|General Surgery|Pediatric Surgery|Surgical Oncology|Transplant Surgery|Thoracic Surgery|Trauma Surgery|Vascular Surgery
-		Gui, 1:Add, Edit, vMLHNoteDotPhrase x132 y110 w120 h20 gOptionsSave +Center, %UserPass6%
-		Gui, 1:Add, Edit, vNoteType x132 y135 w120 h20 gOptionsSave +Center, %UserPass4%
+		Gui, 1:Add, ComboBox, x132 y84 w120 h200 0x100 gOptionsSave vService ,%UserPass3%||Acute Care Surgery|Colorectal Surgery|General Surgery|Pediatric Surgery|Surgical Oncology|Transplant Surgery|Thoracic Surgery|Trauma Surgery|Vascular Surgery
+		Gui, 1:Add, Edit, x132 y110 w120 h20 gOptionsSave +Center vMLHNoteDotPhrase , %UserPass6%
+		Gui, 1:Add, Edit, x132 y135 w120 h20 gOptionsSave +Center vNoteType , %UserPass4%
 	
 		Gui, 1:Add, Button, x132 y160 w120 h20 border gClearFields, Clear Fields
 ;		Gui, 1:Add, Button, x132 y209 w70 h20 border gNoteWriter, Note Assist
