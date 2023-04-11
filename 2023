@@ -528,7 +528,8 @@ Options:
 
 	ifwinexist UTHSC Shortcuts
 	{
-	return
+	Gui, 1: submit, Nohide
+	Gui, 1: Destroy
 	}
 
 	ifwinnotexist UTHSC Shortcuts
@@ -558,7 +559,7 @@ Options:
 
 ;	Optionsgui1 := 1
 
-	Gui, 1:     +alwaysontop  +ToolWindow +E0x08000000 ;  +Lastfound  -caption
+	Gui, 1:     +alwaysontop  +ToolWindow  +E0x08000000 ;  +Lastfound  -caption
 
 	Gui, 1: Font, s14 Bold cWhite, Veranda
 
@@ -580,7 +581,7 @@ Options:
 		Gui, 1:Add, Text, x12 y112 w110 h20 +Right vMLHNoteDotPhraseText, MLH Note Dot Phrase
 		Gui, 1:Add, Text, x12 y137 w110 h20 +Right vROHNoteTemplateText, ROH Note Template
 	
-	
+
 		Gui, 1: Font, cBlack
 
 		Gui, 1:Add, Edit, x132 y34 w120 h20 +Center gOptionsSave vName,%UserPass1%
@@ -1039,13 +1040,6 @@ Setdatelong:
 	
 ^F2::	
 	counthotkeys := counthotkeys +1
-
-	ifwinexist Carestream Vue
-	{
-	WinActivate
-	Return
-	}
-	
 
 	Run, iexplore.exe "https://rohpacs.the-med.org/"
 
