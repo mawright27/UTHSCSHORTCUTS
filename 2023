@@ -485,12 +485,12 @@ Kphos15:
 	send {down}{enter}
 	return
 Kphos30:
-	sendraw, pot phos 30 mg pig
+	sendraw, pot phos 30 pig
 	sleep 750
 	send {down}{enter}
 	return
 Kphos45:
-	sendraw, pot phos 45 mg pig
+	sendraw, pot phos 45 pig
 	sleep 750
 	send {down}{enter}
 	return
