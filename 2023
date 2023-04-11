@@ -1,4 +1,4 @@
-; 4/6/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+; 4/10/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
@@ -454,6 +454,72 @@ Reset1:
 	Reload
 	Return
 
+Magnesium2:
+	sendraw, 2 mag pig
+	sleep 750
+	send {down}{enter}
+	return
+Magnesium4:
+	sendraw, 4 mag pig
+	sleep 750
+	send {down}{enter}
+	return
+Magnesium6:
+	sendraw, 6 mag pig
+	sleep 750
+	send {down}{enter}
+	return
+Kcl40:
+	sendraw, 40 pot chl pig
+	sleep 750
+	send {down}{enter}
+	return
+Kcl80:
+	sendraw, 40 pot chl pig
+	sleep 750
+	send {down}{down}{enter}
+	return
+Kphos15:
+	sendraw, pot phos 15 pig
+	sleep 750
+	send {down}{enter}
+	return
+Kphos30:
+	sendraw, pot phos 30 mg pig
+	sleep 750
+	send {down}{enter}
+	return
+Kphos45:
+	sendraw, pot phos 45 mg pig
+	sleep 750
+	send {down}{enter}
+	return
+Naphos15:
+	sendraw, sod phos 15 pig
+	sleep 750
+	send {down}{enter}
+	return
+Naphos30:
+	sendraw, sod phos 30 pig
+	sleep 750
+	send {down}{enter}
+	return
+Naphos45:
+	sendraw, sod phos 45 pig
+	sleep 750
+	send {down}{enter}
+	return
+CaGlu2:
+	sendraw,  ca glu 2 pig
+	sleep 750
+	send {down}{enter}
+	return
+CaGlu4:
+	sendraw,  ca glu 2 pig
+	sleep 750
+	send {down}{down}{enter}
+	return
+
 ;------------------------------------------------
 ;-----------------OPTIONS------------------------
 ;------------------------------------------------
@@ -504,7 +570,7 @@ Options:
 ;	gui, 1: add, Picture, w16 h16 y2 x250 gOptionsOk, whitex.png
 ;	Gui, 1:Add, Button, x100 y239 w100 h30 gOptionsOk default vOptionsClose, CLOSE
 
-	Gui, 1: add, Tab3, x0 y0 vTab1, General|Note Writer|HotKeys
+	Gui, 1: add, Tab3, x0 y0 vTab1, General|Note Writer|HotKeys|Lytes
 
 	Gui, 1: Tab, 1
 
@@ -563,6 +629,30 @@ Options:
 	
 		Gui, 1:Add, Button, x100 y239 w100 h30 gOptionsOk, CLOSE
 
+	Gui, 1: Tab, 4
+
+		Gui, 1: Add, text, x15 y45 w60 h30 cwhite, KCl
+		Gui, 1: add, Button, Default gKCl40 x50 y35 w60 h30, 40 KCl
+		Gui, 1: add, Button, Default gKCl80 x115 y35 w60 h30, 80 KCl
+
+		Gui, 1: Add, text, x8 y80 w60 h30 cwhite, KPhos
+		Gui, 1: add, Button, Default gKphos15 x50 y70 w60 h30, 15 KPhos
+		Gui, 1: add, Button, Default gKphos30 x115 y70 w60 h30, 30 KPhos
+		Gui, 1: add, Button, Default gKphos45 x180 y70 w60 h30, 45 KPhos
+
+		Gui, 1: Add, text, x8 y115 w60 h30 cwhite, NaPhos
+		Gui, 1: add, Button, Default x50 y105 w60 h30 gNaPhos15, 15 NaPhos
+		Gui, 1: add, Button, Default x115 y105 w60 h30 gNaPhos30, 30 NaPhos
+		Gui, 1: add, Button, Default x180 y105 w60 h30 gNaPhos45, 45 NaPhos
+
+		Gui, 1: Add, text, x15 y150 w60 h30 cwhite, Mg
+		Gui, 1: add, Button, Default x50 y140 w60 h30 gMagnesium2, 2 Mg
+		Gui, 1: add, Button, Default x115 y140 w60 h30 gMagnesium4, 4 Mg
+		Gui, 1: add, Button, Default x180 y140 w60 h30 gMagnesium6, 6 Mg
+
+		Gui, 1: Add, text, x15 y185 w60 h30 cwhite, Ca
+		Gui, 1: add, Button, Default x50 y175 w60 h30 gCaGlu2, 2 Ca
+		Gui, 1: add, Button, Default x115 y175 w60 h30 gCaGlu4, 4 Ca
 		
 ;	WinSet, TransColor, a0a0a0
 	Gui, 1:Color, 212121 ;a0a0a0
@@ -576,6 +666,8 @@ Options:
 	guicontrol,1:+default,optionsclose
 
 	return
+
+
 
 WM_LBUTTONDOWN() {
 	mousegetpos, OptionsXloc, Optionsyloc
@@ -919,11 +1011,26 @@ Setdatelong:
 #if ROH|ROHTrauma
 
 ^F1::	
+
+	ifwinexist Welcome to CernerWorks! - Internet Explorer
+	{
+	WinActivate
+	Return
+	}
+
 	counthotkeys := counthotkeys +1
 	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
 	return
 
 ^F3::	
+
+
+	ifwinexist https://tegapp01.the-med.org/ - Internet Explorer
+	{
+	WinActivate
+	Return
+	}
+
 	counthotkeys := counthotkeys +1
 	Run, iexplore.exe "https://tegapp01.the-med.org/"
 	return
@@ -932,7 +1039,16 @@ Setdatelong:
 	
 ^F2::	
 	counthotkeys := counthotkeys +1
+
+	ifwinexist Carestream Vue
+	{
+	WinActivate
+	Return
+	}
+	
+
 	Run, iexplore.exe "https://rohpacs.the-med.org/"
+
 	return
 	
 +F5::	
