@@ -412,7 +412,7 @@ LNBCheck:
 		Var1 := 1
 	}
 
-	if(Var2 = 12)
+	if(Var2 = 5)
 	{
 		goto, LNBMayhem
 		Return
