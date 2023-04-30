@@ -571,7 +571,7 @@ Options:
 ;	gui, 1: add, Picture, w16 h16 y2 x250 gOptionsOk, whitex.png
 ;	Gui, 1:Add, Button, x100 y239 w100 h30 gOptionsOk default vOptionsClose, CLOSE
 
-	Gui, 1: add, Tab3, x0 y0 vTab1, General|Note Writer|HotKeys|Lytes|CXR
+	Gui, 1: add, Tab3, x0 y0 vTab1, General|Note Writer|HotKeys|Lytes
 
 	Gui, 1: Tab, 1
 
@@ -597,9 +597,10 @@ Options:
 	
 		Gui, 1: Font, cWhite
 
-		Gui, 1:Add, CheckBox, x12 y178 w110 h20 gPause, Pause HotKeys
-		Gui, 1:Add, CheckBox, x12 y196 w110 h20 vScreenDelay gOptionsSave Checked, No Screensaver
-		Gui, 1:Add, CheckBox, x12 y214 w110 h20 vTomorrow gOptionsSave, Note Date +1
+		Gui, 1:Add, CheckBox, x12 y162 w110 h20 gPause, Pause HotKeys
+		Gui, 1:Add, CheckBox, x12 y180 w110 h20 vScreenDelay gOptionsSave Checked, No Screensaver
+		Gui, 1:Add, CheckBox, x12 y198 w110 h20 vTomorrow gOptionsSave, Note Date +1
+		Gui, 1:Add, CheckBox, x12 y214 w110 h20 vCXRShortcut gOptionsSave, CXR Shortcut
 	
 	
 		Gui, 1: Font, cBlack
@@ -654,16 +655,6 @@ Options:
 		Gui, 1: Add, text, x15 y185 w60 h30 cwhite, Ca
 		Gui, 1: add, Button, Default x50 y175 w60 h30 gCaGlu2, 2 Ca
 		Gui, 1: add, Button, Default x115 y175 w60 h30 gCaGlu4, 4 Ca
-
-	Gui, 1: Tab, 5
-
-		Gui, 1:Add, Text, x12 y37 w110 h20 +Right, Coordinates Select
-		Gui, 1:Add, Text, x12 y62 w110 h20 +Right, Coordinates Sign
-
-		Gui, 1:Add, Text, x132 y37 w120 h20 +Center gOptionsSave,%Coordinates1%
-		Gui, 1:Add, Text, x132 y62 w120 h20 +Center gOptionsSave,%Coordinates2%	
-
-		Gui, 1:Add, Button, x132 y87 w120 h20 border gResetCoordinates, Reset Coordinates	
 		
 ;	WinSet, TransColor, a0a0a0
 	Gui, 1:Color, 212121 ;a0a0a0
@@ -678,31 +669,6 @@ Options:
 
 	return
 
-
-ResetCoordinates:
-
-		
-
-		FileDelete, Coordinates1.txt
-		FileAppend, %Coordinates1% , Coordinates1.txt
-
-		FileDelete, Coordinates2.txt	
-		FileAppend, %Coordinates2% , Coordinates2.txt
-
-
-	return
-
-DeleteCoordinates:
-
-	Coordinates1 := ""
-	Coordinates2 := ""
-	FileDelete, Coordinates1.txt
-	FileAppend, %Coordinates1% , Coordinates1.txt
-
-	FileDelete, Coordinates2.txt
-	FileAppend, %Coordinates2% , Coordinates2.txt
-
-	return
 
 
 WM_LBUTTONDOWN() {
@@ -842,10 +808,20 @@ PACS:
 ~MButton::
 	if(A_ThisHotKey = A_PriorHotKey) && (A_TimeSincePriorHotkey < 400) 
 	{
+	if(CXRShortcut = 1)
+	{
 		Gui, 2: Submit, NoHide
 		clipboard := Attending
 		send, {down}{right}{enter}{tab}
 		Send, ^v
+	}
+
+	if(CXRShortcut != 1)
+	{
+		Gui, 2: Submit, NoHide
+		clipboard := Attending
+		Send, ^v
+	}
 	}
 	return
 
