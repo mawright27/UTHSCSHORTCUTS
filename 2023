@@ -834,38 +834,37 @@ PACS:
 		Sendraw, %UserPass2%
 		Send,{ENTER}
 		}
+	return
 
 ^+e::
-	counthotkeys := counthotkeys +1
+	
 	send,mwrigh86@uthsc.edu
 	send, {enter}
 	return
 ^+r::
-	counthotkeys := counthotkeys +1
+	
 	send,Mycatisf@t77
 	send, {enter}
 	return
 		
-^+q::
-	counthotkeys := counthotkeys +1
+^+q::	
 	send,miwright
 	send, {tab}
 	sleep, 100
+
 ^+w::
-	counthotkeys := counthotkeys +1
 	sleep, 50
 	sendraw,Mycatisf@t77777
 	sleep, 100
 	send,{enter}
 	return
 
-^+1::
-	counthotkeys := counthotkeys +1
+^+1::	
 	send,mw030153r
 	send, {tab}
 	sleep, 100
-^+2::
-	counthotkeys := counthotkeys +1
+
+^+2::	
 	sleep, 50
 	sendraw,Mycatisf@t777
 	sleep, 100
@@ -873,12 +872,11 @@ PACS:
 	return
 
 ^+3::
-	counthotkeys := counthotkeys +1
 	send,wri7048
 	send, {tab}
 	sleep, 100
-^+4::
-	counthotkeys := counthotkeys +1
+
+^+4::	
 	sleep, 50
 	sendraw,Mycatisf@t55555
 	sleep, 100
@@ -887,7 +885,7 @@ PACS:
 
 
 ^+u::
-	counthotkeys := counthotkeys +1
+	
 	SetWorkingDir %A_ScriptDir%
 	FileDelete,UTHSC_Shortcuts.txt
 	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
