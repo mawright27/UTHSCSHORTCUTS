@@ -663,41 +663,30 @@ Options:
 
 	Gosub, Hospital  
 
-	OnMessage(0x201, "WM_LBUTTONDOWN")
-
 	guicontrol,1:+default,optionsclose
 
 	return
 
 
+~MButton::
+	if(A_ThisHotKey = A_PriorHotKey) && (A_TimeSincePriorHotkey < 400) 
+	{
+	if(CXRShortcut = 1)
+	{
+		Gui, 2: Submit, NoHide
+		clipboard := Attending
+		send, {down}{right}{enter}{tab}
+		Send, ^v
+	}
 
-WM_LBUTTONDOWN() {
-	mousegetpos, OptionsXloc, Optionsyloc
-
-	if(optionsxloc > 181 && optionsxloc < 278 && optionsyloc < 25)
-
-;	msgbox, %OptionsXloc% , %Optionsyloc%
-
- 	PostMessage, 0xA1, 2,,,A
+	if(CXRShortcut != 1)
+	{
+		Gui, 2: Submit, NoHide
+		clipboard := Attending
+		Send, ^v
+	}
 	}
 	return
-
-~LButton::
-    If (A_ThisHotkey = A_PriorHotkey and A_TimeSincePriorHotkey < 200)
-	{
-	ifwinactive UTHSC Shortcuts
-		{
-		mousegetpos, OptionsXloc, Optionsyloc
-		if(optionsxloc > 181 && optionsxloc < 278 && optionsyloc < 25)
-			{
-			Gui, 1: submit, Nohide
-			Gui, 1: Destroy
-			goto, options
-			return
-			}
-		}
-	}
-	Return
 
 ;CheckboxChange:
 ;	GuiControlGet, vScreenDelay
@@ -805,25 +794,6 @@ PACS:
 
 #n::	run, %windir%\system32\notepad.exe
 
-~MButton::
-	if(A_ThisHotKey = A_PriorHotKey) && (A_TimeSincePriorHotkey < 400) 
-	{
-	if(CXRShortcut = 1)
-	{
-		Gui, 2: Submit, NoHide
-		clipboard := Attending
-		send, {down}{right}{enter}{tab}
-		Send, ^v
-	}
-
-	if(CXRShortcut != 1)
-	{
-		Gui, 2: Submit, NoHide
-		clipboard := Attending
-		Send, ^v
-	}
-	}
-	return
 
 ^+a::
 	counthotkeys := counthotkeys +1
