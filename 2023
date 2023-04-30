@@ -600,7 +600,7 @@ Options:
 		Gui, 1:Add, CheckBox, x12 y162 w110 h20 gPause, Pause HotKeys
 		Gui, 1:Add, CheckBox, x12 y180 w110 h20 vScreenDelay gOptionsSave Checked, No Screensaver
 		Gui, 1:Add, CheckBox, x12 y198 w110 h20 vTomorrow gOptionsSave, Note Date +1
-		Gui, 1:Add, CheckBox, x12 y214 w110 h20 vCXRShortcut gOptionsSave, CXR Shortcut
+		Gui, 1:Add, CheckBox, x12 y216 w110 h20 vCXRShortcut gOptionsSave, CXR Shortcut
 	
 	
 		Gui, 1: Font, cBlack
