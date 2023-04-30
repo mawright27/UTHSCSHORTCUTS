@@ -1035,11 +1035,13 @@ Setdatelong:
 	Reload ; Ctrl-F5 reloads the current AutoHotKey script after any edits.
 	return
 
-F1:
-#if MLH
 
+
+F1:
 F1::
-	
+
+if(MLH)
+	{	
 	counthotkeys := counthotkeys +1
 	ClipboardReplace1 = %clipboard% 
 
@@ -1083,11 +1085,10 @@ DeleteNoteContents:
 	FileDelete, AHKNoteContentsF4.txt
 
 	Return
+	}
 
-#if ROHTrauma
-
-F1::
-	
+if(ROHTrauma)
+	{
 	counthotkeys := counthotkeys +1
 	ClipboardReplace1 = %clipboard% 
 
@@ -1150,6 +1151,8 @@ F1::
 
 	DesiredString5 = %DesiredString3% %DesiredString4% Interval History: %DesiredString5% %DesiredString2%
 	
+	Return
+	}
 	Return
 
 F5::
