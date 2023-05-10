@@ -1,4 +1,4 @@
-; 4/10/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+; 5/10/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
@@ -676,7 +676,8 @@ Options:
 		Gui, 2: Submit, NoHide
 		clipboard := Attending
 		send, {down}{right}{enter}{tab}
-		Send, ^v
+		send, 0200
+		return
 	}
 
 	if(CXRShortcut != 1)
@@ -1155,7 +1156,7 @@ if(ROHTrauma)
 	}
 	Return
 
-F5::
+; F5::
 		
 	counthotkeys := counthotkeys +1clipboard := desiredstring5
 	Sleep, 200
@@ -1167,6 +1168,7 @@ F5::
 #if ; Close
 
 F2:
+F5::
 F2::
 
 	
