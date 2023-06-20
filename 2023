@@ -797,7 +797,7 @@ PACS:
 	{
 	run, %windir%\system32\notepad.exe
 	WinWaitActive, Untitled - Notepad
-	WinMove, Untitled - Notepad, , A_ScreenWidth-400, 0, 400, A_ScreenHeight
+	WinMove, Untitled - Notepad, , A_ScreenWidth-400, 0, 400, 800
 	}
 	return
 
