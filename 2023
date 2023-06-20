@@ -1429,9 +1429,21 @@ LocReload:
 Reload
 return 
 
+
+
 #IfWinActive ahk_class AutoHotkeyGUI
 	^Backspace::
 	Send ^+{Left}{Backspace}
+
+#IfWinActive ahk_class Notepad
+        ^Backspace::
+        Send, {Shift Down}{Left}{Left}{Shift Up}{Del}
+        return
+
+        ^Delete::
+        Send, {Shift Down}{Right}{Right}{Shift Up}{Del}
+        return
+#IfWinActive
 
 ; Ideas: List of dot phrases in a gui
 ;
