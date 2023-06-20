@@ -1436,13 +1436,13 @@ return
 	Send ^+{Left}{Backspace}
 
 #IfWinActive ahk_class Notepad
-        ^Backspace::
-        Send, {Shift Down}{Left}{Left}{Shift Up}{Del}
-        return
+         ^Backspace::
+         Send, {Shift Down}{Ctrl Down}{Left}{Ctrl Up}{Shift Up}{Del}
+         return
 
-        ^Delete::
-        Send, {Shift Down}{Right}{Right}{Shift Up}{Del}
-        return
+         ^Delete::
+         Send, {Shift Down}{Ctrl Down}{Right}{Ctrl Up}{Shift Up}{Del}
+         return
 #IfWinActive
 
 ; Ideas: List of dot phrases in a gui
