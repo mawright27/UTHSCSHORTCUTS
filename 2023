@@ -793,8 +793,13 @@ PACS:
 	run,chrome.exe https://www.google.com/webhp
 	Return
 
-#n::	run, %windir%\system32\notepad.exe
-
+#n::	
+	{
+	run, %windir%\system32\notepad.exe
+	WinWaitActive, Untitled - Notepad
+	WinMove, Untitled - Notepad, , A_ScreenWidth-400, 0, 400, A_ScreenHeight
+	}
+	return
 
 ^+a::
 	counthotkeys := counthotkeys +1
