@@ -844,7 +844,7 @@ PACS:
 	return
 ^+r::
 	
-	send,Mycatisf@t77
+	send,Mycatisf@t77777
 	send, {enter}
 	return
 		
@@ -867,7 +867,7 @@ PACS:
 
 ^+2::	
 	sleep, 50
-	sendraw,Mycatisf@t777
+	sendraw,Mycatisf@t77777
 	sleep, 100
 	send,{enter}
 	return
