@@ -122,11 +122,13 @@ FileUpdate:
 
     ; Calculate the difference in minutes
     EnvSub, lastModified, A_Now, minutes
+	msgbox, %lastmodified%
 
-    if (lastModified <= 1) { ; 240 minutes = 4 hours
+    if (abs(lastModified) >= 1) { ; 240 minutes = 4 hours
         ; If the file is more than 4 hours old
         backupFolder := A_ScriptDir . "\AHK Files"
         backupFilePath := backupFolder . "\" . A_ScriptName . ".bak"
+
 
        FileMove, %programFilePath%, %backupFilePath%, 1 ; The '1' overwrites the existing .bak file
 
