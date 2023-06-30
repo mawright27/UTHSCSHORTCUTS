@@ -787,7 +787,7 @@ PACS:
 	return
 
 ^+a::
-	counthotkeys := counthotkeys +1
+
 	IfNotExist, OldList.txt
 		{
 		GoTo,Options
@@ -809,7 +809,7 @@ PACS:
 	Return
 
 ^+z::
-	counthotkeys := counthotkeys +1
+
 	IfNotExist, OldList.txt
 		{
 		GoTo,Options
@@ -829,7 +829,7 @@ PACS:
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;                   ;
-; Login information ;
+;      UN/PW        ;
 ;                   ;
 ;;;;;;;;;;;;;;;;;;;;;
 
@@ -919,7 +919,6 @@ DateShortcut:
 	sendinput %today%
 	Return
 
-:*?:todaysdate::
 ^!numpad0::
 	datevar1 := +0
 	goto, DateshortcutLong
@@ -949,27 +948,17 @@ DateShortcutLong:
 	sendinput %today%
 	Return
 
-Setdatelong:
-	today = %a_now%
-	today += %datevar1%, days
-	FormatTime, today, %today%, M/d/yy
-	Return
 
 #IfWinNotActive  ahk_class Qt5QWindowIcon
 
-^+c::
-	run,chrome.exe https://www.google.com/webhp
-	Return
-
+^+c::  run,chrome.exe https://www.google.com/webhp
+	
 #IfWinNotActive
 
 #if MLH
 
-^F1::	
-	counthotkeys := counthotkeys +1
-	goto, OFFICE
-	return
-
+^F1::	goto, OFFICE
+	
 #if ROH|ROHTrauma
 
 ^F1::	
@@ -980,7 +969,7 @@ Setdatelong:
 	Return
 	}
 
-	counthotkeys := counthotkeys +1
+
 	Run, iexplore.exe "https://regltn-wi-farm.cernerworkswan.com/Citrix/ProdWeb/"
 	return
 
@@ -993,28 +982,18 @@ Setdatelong:
 	Return
 	}
 
-	counthotkeys := counthotkeys +1
+
 	Run, iexplore.exe "https://tegapp01.the-med.org/"
 	return
 
 #if
 	
-^F2::	
-	counthotkeys := counthotkeys +1
-
-	Run, iexplore.exe "https://rohpacs.the-med.org/"
-
-	return
+^F2::	Run, iexplore.exe "https://rohpacs.the-med.org/"
 	
-+F5::	
-	counthotkeys := counthotkeys +1
-	Edit ; Shift-F5 launches the current AutoHotkey script in preferred editor, else Notepad 
-	return
-
-^F5::	
-	counthotkeys := counthotkeys +1
-	Reload ; Ctrl-F5 reloads the current AutoHotKey script after any edits.
-	return
++F5::	Edit ; Shift-F5 launches the current AutoHotkey script in preferred editor, else Notepad 
+	
+^F5::	Reload ; Ctrl-F5 reloads the current AutoHotKey script after any edits.
+	
 
 
 
@@ -1023,7 +1002,7 @@ F1::
 
 if(MLH)
 	{	
-	counthotkeys := counthotkeys +1
+
 	ClipboardReplace1 = %clipboard% 
 
 	send, ^a
@@ -1070,7 +1049,7 @@ DeleteNoteContents:
 
 if(ROHTrauma)
 	{
-	counthotkeys := counthotkeys +1
+
 	ClipboardReplace1 = %clipboard% 
 
 	send, ^a
@@ -1138,12 +1117,12 @@ if(ROHTrauma)
 
 ; F5::
 		
-	counthotkeys := counthotkeys +1clipboard := desiredstring5
-	Sleep, 200
-	Send, ^a
-	sleep, 300
-	send ^v
-	return
+;~ clipboard := desiredstring5
+	;~ Sleep, 200
+	;~ Send, ^a
+	;~ sleep, 300
+	;~ send ^v
+	;~ return
 
 #if ; Close
 
@@ -1151,8 +1130,6 @@ F2:
 F5::
 F2::
 
-	
-	counthotkeys := counthotkeys +1
 	if(MLH)
 	{
 	
@@ -1261,7 +1238,7 @@ F2::
 F3:
 F3:: 
 	
-	counthotkeys := counthotkeys +1
+
 	CipVar1 := ClipboardAll
 	sleep, 100	
 
@@ -1277,7 +1254,7 @@ F3::
 F4:
 F4:: 
 	
-	counthotkeys := counthotkeys +1
+
 	CipVar1 := ClipboardAll
 	sleep, 100	
 
@@ -1342,7 +1319,7 @@ LNBMayhem:
 ::dcrter::Call or present to the emergency room immediately if you have any of the following: `n Pain that gets worse or is not relieved by medication.`n Warmth, redness, or swelling in the skin around the wound.`n Foul drainage from incision.`n Extensive bruising or discoloration.`n Wound that opens up or pulls apart.`n Fever above 101.5°F or shaking chills.`n Nausea or vomiting.`n Severe diarrhea or severe constipation.`n Dizziness or fainting.`n Chest pain, shortness of breath, or increased work of breathing.`n Weight gain >10lbs over 3-4 days.`n Inability to urinate for more than 6 hours.
 
 ^SPACE::
-	counthotkeys := counthotkeys +1 
+ 
 	Winset, Alwaysontop, , A
 	return
 
