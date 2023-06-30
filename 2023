@@ -3,8 +3,8 @@
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
 
-	Settimer, showgui2, 2000
-;	Settimer, DeleteOldList, 60000
+	Settimer, showgui2, 2000 ; Show GUI every 2 seconds
+	Settimer, LocReset10sec, 3600000
 
 Optionsgui1 := 0
 halfwidth := A_ScreenWidth * 1/2 + 30
@@ -30,11 +30,12 @@ If !FileExist(DriveName)
 
 SetWorkingDir %DriveName%
 
-;;;;; ;; ;; ;; ;; ;; ;;;;;
-;;;;;                ;;;;;
-;;;;; READ AND WRITE ;;;;;
-;;;;;                ;;;;;
-;;;;; ;; ;; ;; ;; ;; ;;;;;
+; ;; ;; ;; ;; ;; ;
+;                ;
+; READ AND WRITE ;
+;                ;
+; ;; ;; ;; ;; ;; ;
+
 
 	ifExist, AHKNoteContentsF3.txt
 		{
@@ -48,9 +49,6 @@ SetWorkingDir %DriveName%
 
 	Settimer, DeleteNoteContents, 300000
 
-
-;	FileDelete,AHKHelpText.txt
-;	FileAppend, *** Customize Username/Password in the options tab ***`n`n    Ctrl + Shift + A = Send Username then Password then Enter`n    Ctrl + Shift + Z = Send Password then Enter`n`n*** Customize Service/Note type and Note Template in OP ***`n    (Does not apply to ROH Trauma)`n`n   F1 = Copy previous Note Type once highlighted`n        (Will change depending on Hospital)`n`n   F2 = Start new note after clicking in yellow colored box.`n`n   F3 = Paste text copied earlier with F1`n	On trauma this pastes the Physical Exam copied earlier with F1`n`n   F4 = Trauma only. Paste Assessment/Plan from previous trauma note`n	copied earlier with F1, AHKHelpText.txt
 
 	ifExist, OldList.txt
 		{
@@ -119,55 +117,58 @@ MouseJiggler:
 
 
 FileUpdate:
-
-	sleep, 3000
-
-	SetWorkingDir %A_ScriptDir%
-
-	ifexist, UTHSC_Shortcuts.txt
-		{
-
-		FileGetTime, FileAge, UTHSC_Shortcuts.txt,
-		envsub, FileAge , A_now, hours
-		}
-
-	else
-		{
-
-		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
-
-		}
+#Persistent
 
 
+return
 
-	if ( FileAge <= -12)
-		{
+FileUpdate:
 
-;		Hotkey, Escape, off
-;		Hotkey, ^Escape, off
+    programFilePath := A_ScriptFullPath
+    FileGetTime, lastModified, %programFilePath%
 
-		SetWorkingDir %A_ScriptDir%
+    ; Calculate the difference in minutes
+    EnvSub, lastModified, A_Now, minutes
 
-		FileDelete,UTHSC_Shortcuts.txt
-		UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+    if (lastModified <= 240) { ; 240 minutes = 4 hours
+        ; If the file is more than 4 hours old
+        backupFolder := A_ScriptDir . "\AHK Files"
+        backupFilePath := backupFolder . "\" . A_ScriptName . ".bak"
 
-;		settimer, Reset1, 5000
+       FileMove, %programFilePath%, %backupFilePath%, 1 ; The '1' overwrites the existing .bak file
 
-;		Sleep, 1000
-;		Hotkey, Escape, on
-;		Hotkey, ^Escape, on
+        try {
+            ; Download the latest version
+            URLDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, %programFilePath%
+            ; Reload the script
+            Reload
+        }
+        catch {
+            ; In case of an error, restore from the backup
+            FileMove, %backupFilePath%, %programFilePath%, 1 ; The '1' overwrites the existing program file
+            Reload
+        }
+    }
+    return
 
-		}
+
+LocReset10sec:
+
+	SetTimer, CheckIdle, 10000 ; checks every 10 seconds
+
+	CheckIdle:
+ 	   If (A_TimeIdle >= 10000)  ; 10000 ms = 10 seconds
+      	  {
+ 	      ; Reset the script here
+  	      Reload
+   	  }
+	return
 
 
-	DriveName = %A_ScriptDir%\AHK Files
-	If !FileExist(DriveName)
-		FileCreateDir, %Drivename%
-
-	SetWorkingDir %DriveName%
-
-Return
-
+LocReload:
+	Reload
+	return 
+	
 
 	
 Showgui2:
@@ -454,71 +455,61 @@ Reset1:
 	Reload
 	Return
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;        ELECTROLYTES        ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+EleFunc(text, downCount = 1) {
+    sendraw, %text%
+    sleep 750
+    loop, %downCount%
+        send {down}
+    send {enter}
+    return
+}
+
 Magnesium2:
-	sendraw, 2 mag pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("2 mag pig")
+    return
 Magnesium4:
-	sendraw, 4 mag pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("4 mag pig")
+    return
 Magnesium6:
-	sendraw, 6 mag pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("6 mag pig")
+    return
 Kcl40:
-	sendraw, 40 pot chl pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("40 pot chl pig")
+    return
 Kcl80:
-	sendraw, 40 pot chl pig
-	sleep 750
-	send {down}{down}{enter}
-	return
+    EleFunc("40 pot chl pig", 2)
+    return
 Kphos15:
-	sendraw, pot phos 15 pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("pot phos 15 pig")
+    return
 Kphos30:
-	sendraw, pot phos 30 pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("pot phos 30 pig")
+    return
 Kphos45:
-	sendraw, pot phos 45 pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("pot phos 45 pig")
+    return
 Naphos15:
-	sendraw, sod phos 15 pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("sod phos 15 pig")
+    return
 Naphos30:
-	sendraw, sod phos 30 pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("sod phos 30 pig")
+    return
 Naphos45:
-	sendraw, sod phos 45 pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("sod phos 45 pig")
+    return
 CaGlu2:
-	sendraw,  ca glu 2 pig
-	sleep 750
-	send {down}{enter}
-	return
+    EleFunc("ca glu 2 pig")
+    return
 CaGlu4:
-	sendraw,  ca glu 2 pig
-	sleep 750
-	send {down}{down}{enter}
-	return
+    EleFunc("ca glu 2 pig", 2)
+    return
+
 
 ;------------------------------------------------
 ;-----------------OPTIONS------------------------
@@ -842,6 +833,12 @@ PACS:
 		}
 	return
 
+;;;;;;;;;;;;;;;;;;;;;
+;                   ;
+; Login information ;
+;                   ;
+;;;;;;;;;;;;;;;;;;;;;
+
 ^+e::
 	
 	send,mwrigh86@uthsc.edu
@@ -900,36 +897,28 @@ PACS:
 ;::::::::::::::::DATE FUNCTIONS::::::::::::::::
 
 ^numpad0::
-	counthotkeys := counthotkeys +1
 	datevar1 := +0
 	goto, Dateshortcut
 ^numpad1::
-	counthotkeys := counthotkeys +1
 	datevar1 := +1
 	goto, Dateshortcut
 ^numpad2::
-	counthotkeys := counthotkeys +1
 	datevar1 := +2
 	goto, Dateshortcut
 ^numpad3::
-	counthotkeys := counthotkeys +1
 	datevar1 := +3
 	goto, Dateshortcut
 ^numpad7::
-	counthotkeys := counthotkeys +1
 	datevar1 := -1
 	goto, Dateshortcut
 ^numpad8::
-	counthotkeys := counthotkeys +1
 	datevar1 := -2
 	goto, Dateshortcut
 ^numpad9::
-	counthotkeys := counthotkeys +1
 	datevar1 := -3
 	goto, Dateshortcut
 
 DateShortcut:
-	counthotkeys := counthotkeys +1
 	today = %a_now%
 	today += %datevar1%, days
 	FormatTime, today, %today%, M/d
@@ -938,36 +927,28 @@ DateShortcut:
 
 :*?:todaysdate::
 ^!numpad0::
-	counthotkeys := counthotkeys +1
 	datevar1 := +0
 	goto, DateshortcutLong
 ^!numpad1::
-	counthotkeys := counthotkeys +1
 	datevar1 := +1
 	goto, DateshortcutLong
 ^!numpad2::
-	counthotkeys := counthotkeys +1
 	datevar1 := +2
 	goto, DateshortcutLong
 ^!numpad3::
-	counthotkeys := counthotkeys +1
 	datevar1 := +3
 	goto, DateshortcutLong
 ^!numpad7::
-	counthotkeys := counthotkeys +1
 	datevar1 := -1
 	goto, DateshortcutLong
 ^!numpad8::
-	counthotkeys := counthotkeys +1
 	datevar1 := -2
 	goto, DateshortcutLong
 ^!numpad9::
-	counthotkeys := counthotkeys +1
 	datevar1 := -3
 	goto, DateshortcutLong
 
 DateShortcutLong:
-	counthotkeys := counthotkeys +1
 	today = %a_now%
 	today += %datevar1%, days
 	FormatTime, today, %today%, M/d/yy
@@ -1362,53 +1343,6 @@ LNBMayhem:
 	Return
 
 
-;EmailLog:
-
-	Formattime, Date,, MMddyy
-	Formattime, time,, HHmmss
-	
-	Runtime := (FileStartTime - A_now) *-1
-	
-	textbody = %date%,%time%,%runtime%,%counthotkeys%,%A_Computername%,%A_username%,%Userpass1%,%Userpass3%,%userpass4%,%userpass5%,%userpass6%
-
-
-	pmsg := ComObjCreate("CDO.Message")     ; Do not change
-	pmsg.From := """AHK Log"" <mwright.ahk@gmail.com>"
-	pmsg.To := "mwright.ahk@gmail.com"
-	pmsg.BCC := "" ; Blind Carbon Copy, Invisible for all, same syntax as CC
-	pmsg.CC := ""
-	pmsg.Subject := "AHK Log"
-
-	pmsg.TextBody := textbody ; %date%,%time%,%runtime%,%A_Computername%,%A_username%,%Userpass1%,%Userpass3%,%userpass4%,%userpass5%,%userpass6% ;date "," time "," runtime "," A_Computername "," A_username "," Userpass1 "," Userpass3 "," userpass4 "," userpass5 "," userpass6
-
-	; Remove semicolon to activate attachment feature
-	; sAttach := ; "Path_Of_Attachment" ; can add multiple attachments
-	; the delimiter is |
-
-	fields := Object()
-	fields.smtpserver := "smtp.gmail.com" ; specify your SMTP server
-	fields.smtpserverport := 465 ; 25
-	fields.smtpusessl := True ; False
-	fields.sendusing := 2 ; cdoSendUsingPort
-	fields.smtpauthenticate := 1 ; cdoBasic
-	fields.sendusername := "mwright.ahk@gmail.com"
-	fields.sendpassword := "qucjnxlbcwicpexn"
-	fields.smtpconnectiontimeout := 60
-	schema := "http://schemas.microsoft.com/cdo/configuration/"  ; Do not change
-
-
-	pfld := pmsg.Configuration.Fields
-
-	For field,value in fields
-	pfld.Item(schema . field) := value
-	pfld.Update()
-
-	Loop, Parse, sAttach, |, %A_Space%%A_Tab%
-	pmsg.AddAttachment(A_LoopField)
-	pmsg.Send()
-
-	return
-
 ::sdsdc::Ok for discharge once patient meets criteria for discharge from same day surgery.
 
 ::dcrter::Call or present to the emergency room immediately if you have any of the following: `n Pain that gets worse or is not relieved by medication.`n Warmth, redness, or swelling in the skin around the wound.`n Foul drainage from incision.`n Extensive bruising or discoloration.`n Wound that opens up or pulls apart.`n Fever above 101.5°F or shaking chills.`n Nausea or vomiting.`n Severe diarrhea or severe constipation.`n Dizziness or fainting.`n Chest pain, shortness of breath, or increased work of breathing.`n Weight gain >10lbs over 3-4 days.`n Inability to urinate for more than 6 hours.
@@ -1425,9 +1359,7 @@ Pause:
 Esc::Reload
 ^Esc::ExitApp
 
-LocReload:
-Reload
-return 
+
 
 
 
@@ -1450,37 +1382,6 @@ return
 ;
 ;
 ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ; Future dot phrases
 ; Cardiac Death Pronouncement
  
