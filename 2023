@@ -1,4 +1,4 @@
-; 7/1/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+; 5/10/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
@@ -115,13 +115,6 @@ MouseJiggler:
 		}
 	return
 
-
-FileUpdate:
-#Persistent
-
-
-return
-
 FileUpdate:
 
     programFilePath := A_ScriptFullPath
@@ -130,7 +123,7 @@ FileUpdate:
     ; Calculate the difference in minutes
     EnvSub, lastModified, A_Now, minutes
 
-    if (lastModified <= 240) { ; 240 minutes = 4 hours
+    if (lastModified <= 1) { ; 240 minutes = 4 hours
         ; If the file is more than 4 hours old
         backupFolder := A_ScriptDir . "\AHK Files"
         backupFilePath := backupFolder . "\" . A_ScriptName . ".bak"
@@ -139,7 +132,9 @@ FileUpdate:
 
         try {
             ; Download the latest version
-            URLDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, %programFilePath%
+            URLDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, 
+
+%programFilePath%
             ; Reload the script
             Reload
         }
@@ -236,7 +231,9 @@ OkayGUI11:
 
 LNBDownload:
 
-	IfNotExist, LNBY.jpg ;  ((IfNotExist, LNBB.jpg) or (IfNotExist, LNBG.jpg) or (IfNotExist, LNBR.jpg) or (IfNotExist, LNBY.jpg))
+	IfNotExist, LNBY.jpg ;  ((IfNotExist, LNBB.jpg) or (IfNotExist, LNBG.jpg) or (IfNotExist, LNBR.jpg) or 
+
+(IfNotExist, LNBY.jpg))
 		{
 		Optionsgui10 := 1
 
@@ -391,7 +388,11 @@ Hospital:
 	
 Office:
 
-	run,chrome.exe -incognito https://outlook.office.com/mail/ 	https://storefront.regionalonehealth.org/vpn/index.html	https://sfvi.methodisthealth.org/Citrix/ShelbyWeb/ https://gobaptist.bmhcc.org/Citrix/BaptistWeb/
+	run,chrome.exe -incognito https://outlook.office.com/mail/ 	
+
+https://storefront.regionalonehealth.org/vpn/index.html	https://sfvi.methodisthealth.org/Citrix/ShelbyWeb/ 
+
+https://gobaptist.bmhcc.org/Citrix/BaptistWeb/
 	return
 
 GoogleSearch:
@@ -577,7 +578,11 @@ Options:
 
 		Gui, 1:Add, Edit, x132 y34 w120 h20 +Center gOptionsSave vName,%UserPass1%
 		Gui, 1:Add, Edit, x132 y59 w120 h20 +Password +Center gOptionsSave vPass,%UserPass2%
-		Gui, 1:Add, ComboBox, x132 y84 w120 h200 0x100 gOptionsSave vService ,%UserPass3%||Acute Care Surgery|Colorectal Surgery|General Surgery|Pediatric Surgery|Surgical Oncology|Transplant Surgery|Thoracic Surgery|Trauma Surgery|Vascular Surgery
+		Gui, 1:Add, ComboBox, x132 y84 w120 h200 0x100 gOptionsSave vService ,%UserPass3%||Acute Care 
+
+Surgery|Colorectal Surgery|General Surgery|Pediatric Surgery|Surgical Oncology|Transplant Surgery|Thoracic 
+
+Surgery|Trauma Surgery|Vascular Surgery
 		Gui, 1:Add, Edit, x132 y110 w120 h20 gOptionsSave +Center vMLHNoteDotPhrase , %UserPass6%
 		Gui, 1:Add, Edit, x132 y135 w120 h20 gOptionsSave +Center vNoteType , %UserPass4%
 	
@@ -618,7 +623,13 @@ Options:
 
 		Gui, 1: Font, cWhite
 
-		Gui, 1: add, Text, x17 y20 w240, `n ESC = Reset`n CTRL + ESC = Close program`n`n CTRL + SHIFT + A = Username, Password, Enter`n CTRL + SHIFT + Z = Password, Enter`n`n WIN + N = New Notepad `n WIN + C = New Chrome `n`n CTRL + NUM 0 = Today's Date, short `n CTRL + ALT + NUM 0 = Today's date, long`n`n Substitute NUM 1 for tomorrow`n Substitute NUM 7 for yesterday
+		Gui, 1: add, Text, x17 y20 w240, `n ESC = Reset`n CTRL + ESC = Close program`n`n CTRL + SHIFT + A = 
+
+Username, Password, Enter`n CTRL + SHIFT + Z = Password, Enter`n`n WIN + N = New Notepad `n WIN + C = New Chrome 
+
+`n`n CTRL + NUM 0 = Today's Date, short `n CTRL + ALT + NUM 0 = Today's date, long`n`n Substitute NUM 1 for 
+
+tomorrow`n Substitute NUM 7 for yesterday
 	
 		Gui, 1:Add, Button, x100 y239 w100 h30 gOptionsOk, CLOSE
 
@@ -891,7 +902,9 @@ PACS:
 	
 	SetWorkingDir %A_ScriptDir%
 	FileDelete,UTHSC_Shortcuts.txt
-	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, UTHSC_Shortcuts.txt
+	UrlDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, 
+
+UTHSC_Shortcuts.txt
 	return
 
 ;::::::::::::::::DATE FUNCTIONS::::::::::::::::
@@ -1041,8 +1054,12 @@ if(MLH)
 
 	BigString = %Clipboard%
 
-	StringGetPos, NeedleStart, BigString, ______________________________________________________________________________________________________________
-	StringGetPos, NeedleEnd, BigString, ______________________________________________________________________________________________________________, L2
+	StringGetPos, NeedleStart, BigString, 
+
+______________________________________________________________________________________________________________
+	StringGetPos, NeedleEnd, BigString, 
+
+______________________________________________________________________________________________________________, L2
 	Start:= NeedleStart +112
 	End:= NeedleEnd -0
 	Length := End - Start
@@ -1345,7 +1362,17 @@ LNBMayhem:
 
 ::sdsdc::Ok for discharge once patient meets criteria for discharge from same day surgery.
 
-::dcrter::Call or present to the emergency room immediately if you have any of the following: `n Pain that gets worse or is not relieved by medication.`n Warmth, redness, or swelling in the skin around the wound.`n Foul drainage from incision.`n Extensive bruising or discoloration.`n Wound that opens up or pulls apart.`n Fever above 101.5°F or shaking chills.`n Nausea or vomiting.`n Severe diarrhea or severe constipation.`n Dizziness or fainting.`n Chest pain, shortness of breath, or increased work of breathing.`n Weight gain >10lbs over 3-4 days.`n Inability to urinate for more than 6 hours.
+::dcrter::Call or present to the emergency room immediately if you have any of the following: `n Pain that gets 
+
+worse or is not relieved by medication.`n Warmth, redness, or swelling in the skin around the wound.`n Foul 
+
+drainage from incision.`n Extensive bruising or discoloration.`n Wound that opens up or pulls apart.`n Fever above 
+
+101.5°F or shaking chills.`n Nausea or vomiting.`n Severe diarrhea or severe constipation.`n Dizziness or 
+
+fainting.`n Chest pain, shortness of breath, or increased work of breathing.`n Weight gain >10lbs over 3-4 days.`n 
+
+Inability to urinate for more than 6 hours.
 
 ^SPACE::
 	counthotkeys := counthotkeys +1 
@@ -1385,4 +1412,12 @@ Esc::Reload
 ; Future dot phrases
 ; Cardiac Death Pronouncement
  
-; Called to bedside for cardiac death pronouncement of patient with DNR orders that was pronounced brain dead earlier this afternoon.  On assessment, the patient is unresponsive to painful stimuli.  Pupils are fixed and dilated.  Corneal reflexes are absent.  The patient has no spontaneous respirations.  The cardiac monitor shows asystole. Heart tones are absent.  Pulses are absent.  Cardiac death pronounced at 1825. ; Family present at bedside, condolences offered.  
+; Called to bedside for cardiac death pronouncement of patient with DNR orders that was pronounced brain dead 
+
+earlier this afternoon.  On assessment, the patient is unresponsive to painful stimuli.  Pupils are fixed and 
+
+dilated.  Corneal reflexes are absent.  The patient has no spontaneous respirations.  The cardiac monitor shows 
+
+asystole. Heart tones are absent.  Pulses are absent.  Cardiac death pronounced at 1825. ; Family present at 
+
+bedside, condolences offered.  
