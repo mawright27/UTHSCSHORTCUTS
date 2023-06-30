@@ -122,9 +122,8 @@ FileUpdate:
 
     ; Calculate the difference in minutes
     EnvSub, lastModified, A_Now, minutes
-	msgbox, %lastmodified%
 
-    if (abs(lastModified) >= 1) { ; 240 minutes = 4 hours
+    if (abs(lastModified) >= 240) { ; 240 minutes = 4 hours
         ; If the file is more than 4 hours old
         backupFolder := A_ScriptDir . "\AHK Files"
         backupFilePath := backupFolder . "\" . A_ScriptName . ".bak"
@@ -136,7 +135,7 @@ FileUpdate:
             ; Download the latest version
             URLDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, %programFilePath%
             ; Reload the script
-            Reload
+            Gosub, LocReset10sec
         }
         catch {
             ; In case of an error, restore from the backup
