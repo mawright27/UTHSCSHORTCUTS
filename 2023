@@ -948,7 +948,7 @@ DateShortcutLong:
 	sendinput %today%
 	Return
 
-^+Numpad0::Run calc
+^+m::Run calc
 
 #IfWinNotActive  ahk_class Qt5QWindowIcon
 
