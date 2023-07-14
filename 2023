@@ -1328,7 +1328,12 @@ Pause:
 	Suspend
 	Return
 
-Esc::Reload
+$Esc::
+
+	Send, {ESC}
+	Reload
+	Return
+
 ^Esc::ExitApp
 
 
