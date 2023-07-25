@@ -1,4 +1,4 @@
-; 7/25/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
+; 7/2023 - https://github.com/mawright27/UTHSCSHORTCUTS/edit/main/2023
 
 #SingleInstance, Force ;Username/Password utility
 #NoTrayIcon
@@ -261,20 +261,10 @@ LNBDownload:
 	IfNotExist, LNBY.jpg
 		{
 		UrlDownloadToFile, https://i.imgur.com/nRJTC9g.jpg, LNBY.jpg
-		Reload
+		sleep, 5000
+		reload
 		}
 		
-;	IfNotExist, c2m2.png
-;		{
-;		UrlDownloadToFile, https://i.imgur.com/PvGP11f.png, c2m2.png
-;		Reload
-;		}
-
-;	IfNotExist, whitex.png
-;		{
-;		UrlDownloadToFile, https://i.imgur.com/tKI0H2B.png, whitex.png
-;		Reload
-;		}
 
 	Return
 
