@@ -117,6 +117,8 @@ MouseJiggler:
 
 FileUpdate:
 
+    sleep, 60000
+
     programFilePath := A_ScriptFullPath
     FileGetTime, lastModified, %programFilePath%
 
@@ -136,6 +138,7 @@ FileUpdate:
             URLDownloadToFile, https://raw.githubusercontent.com/mawright27/UTHSCSHORTCUTS/main/2023, %programFilePath%
             ; Reload the script
             Gosub, LocReset10sec
+
         }
         catch {
             ; In case of an error, restore from the backup
@@ -148,10 +151,10 @@ FileUpdate:
 
 LocReset10sec:
 
-	SetTimer, CheckIdle, 10000 ; checks every 10 seconds
+	SetTimer, CheckIdle, 300000 ; checks every 5 minutes
 
 	CheckIdle:
- 	   If (A_TimeIdle >= 10000)  ; 10000 ms = 10 seconds
+ 	   If (A_TimeIdle >= 300000)  ; 300000 ms = 5 mimnutes
       	  {
  	      ; Reset the script here
   	      Reload
