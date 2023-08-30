@@ -95,8 +95,8 @@ openingframe:
 
 
 MouseJiggler:
-	if(computername = "MICHAEL-PC"){
-		msgbox, works
+	if(computername != "MICHAEL-PC"){
+		
 	loop{
 
 		if(ScreenDelay = 1)
