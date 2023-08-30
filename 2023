@@ -95,7 +95,7 @@ openingframe:
 
 
 MouseJiggler:
-	if(%computername% = "MICHAEL-PC"){
+	if(computername = "MICHAEL-PC"){
 		msgbox, works
 	loop{
 
