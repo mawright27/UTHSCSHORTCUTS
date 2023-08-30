@@ -95,7 +95,8 @@ openingframe:
 
 
 MouseJiggler:
-		
+	if(%computername% = "MICHAEL-PC"){
+		msgbox, works
 	loop{
 
 		if(ScreenDelay = 1)
@@ -113,6 +114,7 @@ MouseJiggler:
 		}
 	
 		}
+	}
 	return
 
 FileUpdate:
