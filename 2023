@@ -870,7 +870,7 @@ PACS:
 
 ^+4::	
 	sleep, 50
-	sendraw,Mycatisf@t77777
+	sendraw,Mycatisf@t888888
 	sleep, 100
 	send,{enter}
 	return
