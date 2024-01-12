@@ -846,7 +846,7 @@ PACS:
 
 ^+w::
 	sleep, 50
-	sendraw,Mycatisf@t88888
+	sendraw,Wintertime2024!
 	sleep, 100
 	send,{enter}
 	return
