@@ -86,7 +86,7 @@ openingframe:
 	Gui, 2: submit, NoHide
 	
 	GoSub, LNBDownload
-
+	GoSub, MouseJiggler
 	Gosub, FileUpdate
 
 ;	Gosub, emaillog
